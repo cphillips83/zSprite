@@ -12,6 +12,8 @@ using zSprite.Scripts;
 using zSprite.Collections;
 using zSprite.Managers;
 using zSprite.Systems;
+using System.Text;
+using System.Reflection;
 #endregion
 
 
@@ -32,19 +34,23 @@ namespace zSprite
 
 
         #region Entities
-        public event Action<IEntity> add;
-        public event Action<IEntity> remove;
+        //public event Action<IEntity> add;
+        //public event Action<IEntity> remove;
 
-        private List<IEntity> _entities = new List<IEntity>(1024);
-        private List<IEntity> _addEntities = new List<IEntity>(64);
-        private List<IEntity> _removeEntities = new List<IEntity>(64);
+        //private List<IEntity> _entities = new List<IEntity>(1024);
+        //private List<IEntity> _addEntities = new List<IEntity>(64);
+        //private List<IEntity> _removeEntities = new List<IEntity>(64);
 
-        private List<ISystem> _systems = new List<ISystem>();
-        private List<ISystem> _initSystems = new List<ISystem>();
-        private List<ISystem> _destroySystems = new List<ISystem>();
+        //private List<ISystem> _systems = new List<ISystem>();
+        //private List<ISystem> _initSystems = new List<ISystem>();
+        //private List<ISystem> _destroySystems = new List<ISystem>();
 
         #endregion
 
+        /// <summary>
+        /// Holds instance of LogManager
+        /// </summary>
+        private readonly Core.LogManager logMgr;
 
         public readonly LogManager logging = new LogManager();
         public readonly TimeManager time = new TimeManager();
@@ -81,6 +87,86 @@ namespace zSprite
 
         public int totalGOs { get { return indexedGO.Count; } }
 
+        public Root()
+            : this("zsprite.log")
+        {
+
+        }
+
+        public Root(string logFilename)
+        {
+            _instance = this;
+            var info = new StringBuilder();
+
+            // write the initial info at the top of the log
+            info.AppendFormat("*********zSprite Engine Log *************\n");
+            info.AppendFormat("{0}\n", Copyright);
+            info.AppendFormat("Version: {0}\n", Version);
+            info.AppendFormat("Operating System: {0}\n", Environment.OSVersion.ToString());
+            var isMono = Type.GetType("Mono.Runtime") != null;
+            info.AppendFormat("{1} Framework: {0}\n", Environment.Version.ToString(), isMono ? "Mono" : ".Net");
+
+            // Initializes the Log Manager singleton
+            if (Core.LogManager.Instance == null)
+            {
+                new LogManager();
+            }
+
+            this.logMgr = Core.LogManager.Instance;
+
+            //if logFileName is null, then just the Diagnostics (debug) writes will be made
+            // create a new default log
+            this.logMgr.CreateLog(logFilename, true, true);
+
+            this.logMgr.Write(info.ToString());
+            this.logMgr.Write("*-*-* zSprite Initializing");
+
+
+            new Core.PluginManager();
+            Core.PluginManager.Instance.LoadAll();
+        }
+
+        /// <summary>
+        /// Returns the current version of the Engine assembly.
+        /// </summary>
+        public string Version
+        {
+            get
+            {
+                // returns the file version of this assembly
+#if SILVERLIGHT || WINDOWS_PHONE
+				var fullName = Assembly.GetExecutingAssembly().ToString();
+				var a = fullName.IndexOf( "Version=" ) + 8;
+				var b = fullName.IndexOf( ",", a );
+				return fullName.Substring( a, b - a );
+#else
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+#endif
+            }
+        }
+
+        /// <summary>
+        /// Specifies the name of the engine that will be used where needed (i.e. log files, etc).
+        /// </summary>
+        public string Copyright
+        {
+            get
+            {
+                var attribute =
+                    (AssemblyCopyrightAttribute)
+                    Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyCopyrightAttribute), false);
+
+                if (attribute != null)
+                {
+                    return attribute.Copyright;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
         private int uniqueId = 0;
         public int nextId()
         {
@@ -92,7 +178,7 @@ namespace zSprite
         public bool isRunning = false;
 
         internal void start(GraphicsDevice device, ContentManager content)
-        {
+        {            
             _instance = this;
             this.content = content;
             this.content.RootDirectory = string.Empty;
@@ -135,27 +221,27 @@ namespace zSprite
             //}
         }
 
-        public void addEntity(IEntity e)
-        {
-            _addEntities.Add(e);
-        }
+        //public void addEntity(IEntity e)
+        //{
+        //    _addEntities.Add(e);
+        //}
 
-        public void removeEntity(IEntity e)
-        {
-            _removeEntities.Add(e);
-        }
+        //public void removeEntity(IEntity e)
+        //{
+        //    _removeEntities.Add(e);
+        //}
 
-        public void addSystem(ISystem system)
-        {
-            //_systems.Add(system);
-            _initSystems.Add(system);
-        }
+        //public void addSystem(ISystem system)
+        //{
+        //    //_systems.Add(system);
+        //    _initSystems.Add(system);
+        //}
 
-        public void removeSystem(ISystem system)
-        {
-            _destroySystems.Add(system);
-            //_systems.Remove(system);
-        }
+        //public void removeSystem(ISystem system)
+        //{
+        //    _destroySystems.Add(system);
+        //    //_systems.Remove(system);
+        //}
 
         private void processNewScripts()
         {
@@ -171,59 +257,59 @@ namespace zSprite
         {
             _instance = this;
 
-            #region Entities
-            for (var i = 0; i < _destroySystems.Count; i++)
-            {
-                _destroySystems[i].destroy();
-                _systems.Remove(_destroySystems[i]);
-            }
+            //#region Entities
+            //for (var i = 0; i < _destroySystems.Count; i++)
+            //{
+            //    _destroySystems[i].destroy();
+            //    _systems.Remove(_destroySystems[i]);
+            //}
 
-            _destroySystems.Clear();
+            //_destroySystems.Clear();
 
-            for (var i = 0; i < _initSystems.Count; i++)
-            {
-                _initSystems[i].init();
-                _systems.Add(_initSystems[i]);
-            }
+            //for (var i = 0; i < _initSystems.Count; i++)
+            //{
+            //    _initSystems[i].init();
+            //    _systems.Add(_initSystems[i]);
+            //}
 
-            _initSystems.Clear();
+            //_initSystems.Clear();
 
-            while (_removeEntities.Count > 0)
-            {
-                var next = _removeEntities[_removeEntities.Count - 1];
-                var index = _entities.IndexOf(next);
+            //while (_removeEntities.Count > 0)
+            //{
+            //    var next = _removeEntities[_removeEntities.Count - 1];
+            //    var index = _entities.IndexOf(next);
 
-                if (index == -1)
-                    throw new ArgumentOutOfRangeException("index");
+            //    if (index == -1)
+            //        throw new ArgumentOutOfRangeException("index");
 
-                if (_addEntities.Count > 0)
-                {
-                    _entities[index] = _addEntities[_addEntities.Count - 1];
-                    _addEntities.RemoveAt(_addEntities.Count - 1);
+            //    if (_addEntities.Count > 0)
+            //    {
+            //        _entities[index] = _addEntities[_addEntities.Count - 1];
+            //        _addEntities.RemoveAt(_addEntities.Count - 1);
 
-                    if (add != null)
-                        add(_entities[index]);
-                }
+            //        if (add != null)
+            //            add(_entities[index]);
+            //    }
 
-                if (remove != null)
-                    remove(_removeEntities[_removeEntities.Count - 1]);
+            //    if (remove != null)
+            //        remove(_removeEntities[_removeEntities.Count - 1]);
 
-                _removeEntities.RemoveAt(_removeEntities.Count - 1);
-            }
+            //    _removeEntities.RemoveAt(_removeEntities.Count - 1);
+            //}
 
-            while (_addEntities.Count > 0)
-            {
-                _entities.Add(_addEntities[_addEntities.Count - 1]);
-                _addEntities.RemoveAt(_addEntities.Count - 1);
+            //while (_addEntities.Count > 0)
+            //{
+            //    _entities.Add(_addEntities[_addEntities.Count - 1]);
+            //    _addEntities.RemoveAt(_addEntities.Count - 1);
 
-                if (add != null)
-                    add(_entities[_entities.Count - 1]);
-            }
+            //    if (add != null)
+            //        add(_entities[_entities.Count - 1]);
+            //}
 
-            for (var i = 0; i < _systems.Count; i++)
-                _systems[i].update();
+            //for (var i = 0; i < _systems.Count; i++)
+            //    _systems[i].update();
 
-            #endregion
+            //#endregion
 
             foreach (var go in destroyList)
                 go.internalDestroy();
@@ -304,8 +390,8 @@ namespace zSprite
         {
             _instance = this;
 
-            for (var i = 0; i < _systems.Count; i++)
-                _systems[i].render();
+            //for (var i = 0; i < _systems.Count; i++)
+            //    _systems[i].render();
 
             graphics.drawCallsThisFrame = 0;
             graphics.spritesSubmittedThisFrame = 0;

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 
-namespace zSprite.Systems
-{
-    class EntitySystem
-    {
-    }
-}
+//namespace zSprite.Systems
+//{
+//    class EntitySystem
+//    {
+//    }
+//}

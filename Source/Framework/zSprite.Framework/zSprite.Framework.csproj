@@ -52,7 +52,16 @@
     <Compile Include="AI\Pathfinding\AStar2.cs" />
     <Compile Include="AI\Pathfinding\GenericAstar.cs" />
     <Compile Include="Arrays.cs" />
+    <Compile Include="Collections\AxiomCollection.cs" />
     <Compile Include="Collections\ReusableList.cs" />
+    <Compile Include="Core\CoreEnum.cs" />
+    <Compile Include="Core\DisposableObject.cs" />
+    <Compile Include="Core\IPlugin.cs" />
+    <Compile Include="Core\Log.cs" />
+    <Compile Include="Core\LogManager.cs" />
+    <Compile Include="Core\ObjectCreator.cs" />
+    <Compile Include="Core\PluginManager.cs" />
+    <Compile Include="Core\Singleton.cs" />
     <Compile Include="Easing.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventListener.cs" />
