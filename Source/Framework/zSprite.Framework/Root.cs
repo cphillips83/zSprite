@@ -32,7 +32,6 @@ namespace zSprite
             }
         }
 
-
         #region Entities
         //public event Action<IEntity> add;
         //public event Action<IEntity> remove;

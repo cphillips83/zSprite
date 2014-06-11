@@ -62,9 +62,9 @@ namespace zSprite.Managers
 
         public bool IsLeftMouseDown { get { return currentMouseState.LeftButton == ButtonState.Pressed; } }
 
-        public bool WasLeftMousePressed { get { return lastMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed; } }
+        public bool WasLeftMousePressed { get { return lastMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Released; } }
 
-        public bool WasRightMousePressed { get { return lastMouseState.RightButton == ButtonState.Released && currentMouseState.RightButton == ButtonState.Pressed; } }
+        public bool WasRightMousePressed { get { return lastMouseState.RightButton == ButtonState.Pressed && currentMouseState.RightButton == ButtonState.Released; } }
 
         public int MouseX
         {
