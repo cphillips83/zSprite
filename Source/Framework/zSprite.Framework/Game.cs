@@ -73,6 +73,8 @@ namespace zSprite
             graphics.GraphicsDevice.PresentationParameters.RenderTargetUsage = RenderTargetUsage.DiscardContents;
             graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
             graphics.ApplyChanges();
+
+            //root.start(this.GraphicsDevice, Content);
             //spriteBatch.Begin(
         }
 

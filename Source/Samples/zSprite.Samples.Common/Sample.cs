@@ -17,7 +17,7 @@ namespace zSprite.Samples
 
         protected override void Initialize()
         {
-            input = new InputManager();
+            //input = new InputManager();
             base.Initialize();
 
         }

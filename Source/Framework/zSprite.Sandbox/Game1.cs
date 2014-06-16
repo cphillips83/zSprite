@@ -14,7 +14,7 @@ namespace zSprite.Sandbox
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class Game1 : GameEngine
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -22,8 +22,6 @@ namespace zSprite.Sandbox
         public Game1()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
         }
 
         /// <summary>
@@ -37,6 +35,7 @@ namespace zSprite.Sandbox
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            this.IsMouseVisible = true;   
         }
 
         /// <summary>
@@ -45,6 +44,7 @@ namespace zSprite.Sandbox
         /// </summary>
         protected override void LoadContent()
         {
+            base.LoadContent();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
