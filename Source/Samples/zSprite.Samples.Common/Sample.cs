@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using zSprite.Managers;
+using zSpriteOld.Managers;
 
-namespace zSprite.Samples
+namespace zSpriteOld.Samples
 {
     public class Sample : GameEngine
     {

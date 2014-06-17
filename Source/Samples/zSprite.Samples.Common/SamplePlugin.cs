@@ -22,9 +22,9 @@
 
 #endregion License
 
-using zSprite.Core;
+using zSpriteOld.Core;
 
-namespace zSprite.Samples
+namespace zSpriteOld.Samples
 {
     /// <summary>
     /// Utility class used to hold a set of samples in an Axiom plugin.

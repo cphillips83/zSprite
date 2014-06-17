@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using zSprite.Core;
+using zSpriteOld.Core;
 
-namespace zSprite.Samples
+namespace zSpriteOld.Samples
 {
     public class SampleBrowser:IDisposable
     {

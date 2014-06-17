@@ -30,12 +30,12 @@ using System.Globalization;
 using System.Security.Permissions;
 using System.Threading;
 #if (XBOX || XBOX360) || !( WINDOWS_PHONE || SILVERLIGHT || ANDROID || IOS )
-using zSprite.Core;
+using zSpriteOld.Core;
 
 #endif
 
 
-namespace zSprite.Samples.Browser.Win32
+namespace zSpriteOld.Samples.Browser.Win32
 {
 	internal static class Program
 	{

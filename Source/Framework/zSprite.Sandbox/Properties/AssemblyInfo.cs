@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("zSprite.Sandbox")]
-[assembly: AssemblyProduct("zSprite.Sandbox")]
+[assembly: AssemblyTitle("zSpriteOld.Sandbox")]
+[assembly: AssemblyProduct("zSpriteOld.Sandbox")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]

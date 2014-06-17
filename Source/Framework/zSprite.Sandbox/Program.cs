@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #endregion
 
-namespace zSprite.Sandbox
+namespace zSpriteOld.Sandbox
 {
 #if WINDOWS || LINUX
     /// <summary>
