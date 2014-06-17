@@ -1,56 +1,32 @@
-﻿#region LGPL License
+﻿#region GPLv3 License
 
 /*
-Axiom Graphics Engine Library
-Copyright © 2003-2011 Axiom Project Team
-
-The overall design, and a majority of the core engine and rendering code
-contained within this library is a derivative of the open source Object Oriented
-Graphics Engine OGRE, which can be found at http://ogre.sourceforge.net.
-Many thanks to the OGRE team for maintaining such a high quality project.
-
-The math library included in this project, in addition to being a derivative of
-the works of Ogre, also include derivative work of the free portion of the
-Wild Magic mathematics source code that is distributed with the excellent
-book Game Engine Design.
-http://www.wild-magic.com/
+zSprite
+Copyright © 2014 zSprite Project Team
 
 This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+modify it under the terms of the GNU General Public License V3
+as published by the Free Software Foundation; either
+version 3 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
+General Public License V3 for more details.
 
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
+You should have received a copy of the GNU General Public License V3
+along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-#endregion LGPL License
-
-#region SVN Version Information
-
-// <file>
-//     <license see="http://axiom3d.net/wiki/index.php/license.txt"/>
-//     <id value="$Id: AxisAlignedBox.cs 2353 2010-12-30 03:50:52Z borrillis $"/>
-// </file>
-
-#endregion SVN Version Information
+#endregion
 
 #region Namespace Declarations
-
-using Microsoft.Xna.Framework;
 using System;
 using System.Diagnostics;
-using zSpriteOld;
-using zSpriteOld.Managers;
-
 #endregion Namespace Declarations
-namespace zSpriteOld
+
+namespace zSprite
 {
     /// <summary>
     ///		A 3D box aligned with the x/y/z axes.
@@ -63,7 +39,7 @@ namespace zSpriteOld
     ///	    for an axis-aligned bounding box (AABB) for collision and
     ///	    visibility determination.
     /// </remarks>
-    public struct AxisAlignedBox : ICloneable
+    public struct AxisAlignedBox2 : ICloneable
     {
         #region Fields
 
@@ -77,7 +53,7 @@ namespace zSpriteOld
 
         #region Constructors
 
-        public AxisAlignedBox(float x0, float y0, float x1, float y1)
+        public AxisAlignedBox2(Real x0, Real y0, Real x1, Real y1)
         {
             corners = new Vector2[4];
             minVector.X = x0;
@@ -89,7 +65,7 @@ namespace zSpriteOld
             UpdateCorners();
         }
 
-        public AxisAlignedBox(Vector2 min, Vector2 max)
+        public AxisAlignedBox2(Vector2 min, Vector2 max)
         {
             corners = new Vector2[4];
             minVector = min;
@@ -99,7 +75,7 @@ namespace zSpriteOld
             UpdateCorners();
         }
 
-        public AxisAlignedBox(AxisAlignedBox box)
+        public AxisAlignedBox2(AxisAlignedBox2 box)
         {
             corners = new Vector2[4];
             minVector = box.minVector;
@@ -113,23 +89,23 @@ namespace zSpriteOld
 
         #region Public methods
 
-        public float Height
+        public Real Height
         {
             get { return maxVector.Y - minVector.Y; }
         }
 
-        public float Width
+        public Real Width
         {
             get { return maxVector.X - minVector.X; }
         }
 
-        public float X0 { get { return minVector.X; } }
+        public Real X0 { get { return minVector.X; } }
 
-        public float X1 { get { return maxVector.X; } }
+        public Real X1 { get { return maxVector.X; } }
 
-        public float Y0 { get { return minVector.Y; } }
+        public Real Y0 { get { return minVector.Y; } }
 
-        public float Y1 { get { return maxVector.Y; } }
+        public Real Y1 { get { return maxVector.Y; } }
 
         /// <summary>
         ///     Return new bounding box from the supplied dimensions.
@@ -137,32 +113,32 @@ namespace zSpriteOld
         /// <param name="center">Center of the new box</param>
         /// <param name="size">Entire size of the new box</param>
         /// <returns>New bounding box</returns>
-        public static AxisAlignedBox FromDimensions(Vector2 center, Vector2 size)
+        public static AxisAlignedBox2 FromDimensions(Vector2 center, Vector2 size)
         {
             Vector2 halfSize = .5f * size;
 
-            return new AxisAlignedBox(center - halfSize, center + halfSize);
+            return new AxisAlignedBox2(center - halfSize, center + halfSize);
         }
 
-        public static AxisAlignedBox FromRect(float x, float y, float w, float h)
+        public static AxisAlignedBox2 FromRect(Real x, Real y, Real w, Real h)
         {
             var min = new Vector2(x, y);
             var max = new Vector2(w, h) + min;
-            return new AxisAlignedBox(min, max);
+            return new AxisAlignedBox2(min, max);
         }
 
-        public static AxisAlignedBox FromRect(Vector2 min, float w, float h)
+        public static AxisAlignedBox2 FromRect(Vector2 min, Real w, Real h)
         {
             var max = new Vector2(w, h) + min;
-            return new AxisAlignedBox(min, max);
+            return new AxisAlignedBox2(min, max);
         }
 
-        public static AxisAlignedBox FromRect(Vector2 min, Vector2 size)
+        public static AxisAlignedBox2 FromRect(Vector2 min, Vector2 size)
         {
-            return new AxisAlignedBox(min, min + size);
+            return new AxisAlignedBox2(min, min + size);
         }
 
-        public void Inflate(float x, float y)
+        public void Inflate(Real x, Real y)
         {
             var hx = x / 2f;
             var hy = y / 2f;
@@ -182,7 +158,7 @@ namespace zSpriteOld
         ///		Allows for merging two boxes together (combining).
         /// </summary>
         /// <param name="box">Source box.</param>
-        public void Merge(AxisAlignedBox box)
+        public void Merge(AxisAlignedBox2 box)
         {
             if (box.IsNull)
             {
@@ -313,7 +289,7 @@ namespace zSpriteOld
                    Minimum.Y <= v.Y && v.Y <= Maximum.Y;
         }
 
-        public bool Contains(AxisAlignedBox box)
+        public bool Contains(AxisAlignedBox2 box)
         {
             return Contains(box.minVector) && Contains(box.maxVector);
         }
@@ -322,7 +298,7 @@ namespace zSpriteOld
 
         #region Intersection Methods
 
-        public MinimumTranslationVector collide(AxisAlignedBox box2)
+        public MinimumTranslationVector collide(AxisAlignedBox2 box2)
         {
             var overlap = Intersection(box2);
             if (!overlap.IsNull)
@@ -348,14 +324,14 @@ namespace zSpriteOld
                         axis.edge = new Vector2(overlap.X1, overlap.Y1) - new Vector2(overlap.X0, overlap.Y1);
                 }
 
-                axis.unit = axis.edge.Perp();
+                axis.unit = axis.edge.Perpendicular;
                 axis.normal = axis.unit.ToNormalized();
                 return new MinimumTranslationVector(axis, minOverlap);
             }
             return MinimumTranslationVector.Zero;
         }
 
-        public MinimumTranslationVector collideX(AxisAlignedBox box2)
+        public MinimumTranslationVector collideX(AxisAlignedBox2 box2)
         {
             var overlap = Intersection(box2);
             if (!overlap.IsNull)
@@ -370,14 +346,14 @@ namespace zSpriteOld
                 else
                     axis.edge = new Vector2(overlap.X1, overlap.Y1) - new Vector2(overlap.X1, overlap.Y0);
 
-                axis.unit = axis.edge.Perp();
+                axis.unit = axis.edge.Perpendicular;
                 axis.normal = axis.unit.ToNormalized();
                 return new MinimumTranslationVector(axis, minOverlap);
             }
             return MinimumTranslationVector.Zero;
         }
 
-        public MinimumTranslationVector collideY(AxisAlignedBox box2)
+        public MinimumTranslationVector collideY(AxisAlignedBox2 box2)
         {
             var overlap = Intersection(box2);
             if (!overlap.IsNull)
@@ -392,7 +368,7 @@ namespace zSpriteOld
                 else
                     axis.edge = new Vector2(overlap.X1, overlap.Y1) - new Vector2(overlap.X0, overlap.Y1);
 
-                axis.unit = axis.edge.Perp();
+                axis.unit = axis.edge.Perpendicular;
                 axis.normal = axis.unit.ToNormalized();
                 return new MinimumTranslationVector(axis, minOverlap);
             }
@@ -402,10 +378,10 @@ namespace zSpriteOld
         /// <summary>
         ///		Calculate the area of intersection of this box and another
         /// </summary>
-        public AxisAlignedBox Intersection(AxisAlignedBox b2)
+        public AxisAlignedBox2 Intersection(AxisAlignedBox2 b2)
         {
             if (!Intersects(b2))
-                return AxisAlignedBox.Null;
+                return AxisAlignedBox2.Null;
 
             Vector2 intMin = Vector2.Zero;
             Vector2 intMax = Vector2.Zero;
@@ -431,7 +407,7 @@ namespace zSpriteOld
             else
                 intMin.Y = b2min.Y;
 
-            return new AxisAlignedBox(intMin, intMax);
+            return new AxisAlignedBox2(intMin, intMax);
         }
 
         /// <summary>
@@ -439,7 +415,7 @@ namespace zSpriteOld
         /// </summary>
         /// <param name="box2"></param>
         /// <returns>True if the 2 boxes intersect, false otherwise.</returns>
-        public bool Intersects(AxisAlignedBox box2)
+        public bool Intersects(AxisAlignedBox2 box2)
         {
             // Early-fail for nulls
             if (this.IsNull || box2.IsNull)
@@ -510,11 +486,11 @@ namespace zSpriteOld
         /// <summary>
         ///		Returns a null box
         /// </summary>
-        public static AxisAlignedBox Null
+        public static AxisAlignedBox2 Null
         {
             get
             {
-                AxisAlignedBox nullBox = new AxisAlignedBox(new Vector2(-0.5f, -0.5f), new Vector2(0.5f, 0.5f));
+                AxisAlignedBox2 nullBox = new AxisAlignedBox2(new Vector2(-0.5f, -0.5f), new Vector2(0.5f, 0.5f));
                 nullBox.IsNull = true;
                 nullBox.isInfinite = false;
                 return nullBox;
@@ -584,7 +560,7 @@ namespace zSpriteOld
                     return Vector2.Zero;
 
                 if (isInfinite)
-                    return new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+                    return new Vector2(Real.PositiveInfinity, Real.PositiveInfinity);
 
                 return (Maximum - Minimum) * 0.5f;
             }
@@ -680,7 +656,7 @@ namespace zSpriteOld
         /// <summary>
         ///     Calculate the volume of this box
         /// </summary>
-        public float Volume
+        public Real Volume
         {
             get
             {
@@ -688,7 +664,7 @@ namespace zSpriteOld
                     return 0.0f;
 
                 if (isInfinite)
-                    return float.PositiveInfinity;
+                    return Real.PositiveInfinity;
 
                 Vector2 diff = Maximum - Minimum;
                 return diff.X * diff.Y;
@@ -699,7 +675,7 @@ namespace zSpriteOld
 
         #region Operator Overloads
 
-        public static bool operator !=(AxisAlignedBox left, AxisAlignedBox right)
+        public static bool operator !=(AxisAlignedBox2 left, AxisAlignedBox2 right)
         {
             //if ((object.ReferenceEquals(left, null) || left.isNull) &&
             //    (object.ReferenceEquals(right, null) || right.isNull))
@@ -716,7 +692,7 @@ namespace zSpriteOld
             //    left.corners[6] != right.corners[6] || left.corners[7] != right.corners[7]);
         }
 
-        public static bool operator ==(AxisAlignedBox left, AxisAlignedBox right)
+        public static bool operator ==(AxisAlignedBox2 left, AxisAlignedBox2 right)
         {
             //if ((object.ReferenceEquals(left, null) || left.isNull) &&
             //    (object.ReferenceEquals(right, null) || right.isNull))
@@ -734,7 +710,7 @@ namespace zSpriteOld
 
         public override bool Equals(object obj)
         {
-            return obj is AxisAlignedBox && this == (AxisAlignedBox)obj;
+            return obj is AxisAlignedBox2 && this == (AxisAlignedBox2)obj;
         }
 
         public override int GetHashCode()
@@ -757,33 +733,33 @@ namespace zSpriteOld
 
         public object Clone()
         {
-            return new AxisAlignedBox(this);
+            return new AxisAlignedBox2(this);
         }
 
         #endregion ICloneable Members
 
-        public AxisAlignedBox[] fromRectOffset(RectOffset offset)
+        public AxisAlignedBox2[] fromRectOffset(RectOffset offset)
         {
-            var inner = new AxisAlignedBox(minVector + offset.min, maxVector - offset.max);
+            var inner = new AxisAlignedBox2(minVector + offset.min, maxVector - offset.max);
 
-            var rects = new AxisAlignedBox[9];
+            var rects = new AxisAlignedBox2[9];
 
-            rects[0] = new AxisAlignedBox(corners[0], inner.corners[0]);
-            rects[2] = new AxisAlignedBox(Utility.Min(corners[1], inner.corners[1]), Utility.Max(corners[1], inner.corners[1]));
-            rects[6] = new AxisAlignedBox(Utility.Min(corners[3], inner.corners[3]), Utility.Max(corners[3], inner.corners[3]));
-            rects[8] = new AxisAlignedBox(inner.corners[2], corners[2]);
+            rects[0] = new AxisAlignedBox2(corners[0], inner.corners[0]);
+            rects[2] = new AxisAlignedBox2(Utility.Min(corners[1], inner.corners[1]), Utility.Max(corners[1], inner.corners[1]));
+            rects[6] = new AxisAlignedBox2(Utility.Min(corners[3], inner.corners[3]), Utility.Max(corners[3], inner.corners[3]));
+            rects[8] = new AxisAlignedBox2(inner.corners[2], corners[2]);
 
-            rects[1] = new AxisAlignedBox(rects[0].corners[1], inner.corners[1]);
-            rects[3] = new AxisAlignedBox(rects[0].corners[3], inner.corners[3]);
+            rects[1] = new AxisAlignedBox2(rects[0].corners[1], inner.corners[1]);
+            rects[3] = new AxisAlignedBox2(rects[0].corners[3], inner.corners[3]);
             rects[4] = inner;
-            rects[5] = new AxisAlignedBox(rects[2].corners[3], rects[8].corners[1]);
-            rects[7] = new AxisAlignedBox(rects[6].corners[1], rects[8].corners[3]);
+            rects[5] = new AxisAlignedBox2(rects[2].corners[3], rects[8].corners[1]);
+            rects[7] = new AxisAlignedBox2(rects[6].corners[1], rects[8].corners[3]);
             return rects;
         }
 
 
 
-        public void RotateAndContain(Vector2 pivot, float r)
+        public void RotateAndContain(Vector2 pivot, Real r)
         {
             if (!isNull && !isInfinite && r != 0)
             {
@@ -800,7 +776,7 @@ namespace zSpriteOld
             }
         }
 
-        public Vector2[] ToOBB(Vector2 pivot, float r)
+        public Vector2[] ToOBB(Vector2 pivot, Real r)
         {
             if (!isNull && !isInfinite && r != 0)
             {
@@ -814,12 +790,12 @@ namespace zSpriteOld
             return corners;
         }
 
-        public Rectangle ToRect()
-        {
-            if (IsNull)
-                throw new NullReferenceException();
+        //public Rectangle ToRect()
+        //{
+        //    if (IsNull)
+        //        throw new NullReferenceException();
 
-            return new Rectangle((int)minVector.X, (int)minVector.Y, (int)(maxVector.X - minVector.X), (int)(maxVector.Y - minVector.Y));
-        }
+        //    return new Rectangle((int)minVector.X, (int)minVector.Y, (int)(maxVector.X - minVector.X), (int)(maxVector.Y - minVector.Y));
+        //}
     }
 }

@@ -1,42 +1,28 @@
-﻿#region LGPL License
+﻿#region GPLv3 License
 
 /*
-Axiom Graphics Engine Library
-Copyright © 2003-2011 Axiom Project Team
-
-The overall design, and a majority of the core engine and rendering code 
-contained within this library is a derivative of the open source Object Oriented 
-Graphics Engine OGRE, which can be found at http://ogre.sourceforge.net.  
-Many thanks to the OGRE team for maintaining such a high quality project.
+zSprite
+Copyright © 2014 zSprite Project Team
 
 This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+modify it under the terms of the GNU General Public License V3
+as published by the Free Software Foundation; either
+version 3 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
+General Public License V3 for more details.
 
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
+You should have received a copy of the GNU General Public License V3
+along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 #endregion
 
-#region SVN Version Information
-
-// <file>
-//     <license see="http://axiom3d.net/wiki/index.php/license.txt"/>
-//     <id value="$Id: GpuProgramParameters.cs 1036 2007-04-27 02:56:41Z borrillis $"/>
-// </file>
-
-#endregion SVN Version Information
-
 #region Namespace Declarations
-
+// The Real datatype is actually one of these under the covers
 #if AXIOM_REAL_AS_SINGLE || !( AXIOM_REAL_AS_DOUBLE )
 using Numeric = System.Single;
 #else
@@ -46,10 +32,9 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
-
 #endregion Namespace Declarations
 
-namespace zSpriteOld
+namespace zSprite
 {
     /// <summary>
     /// Wrapper class which indicates a given angle value is in Radians.
@@ -61,18 +46,18 @@ namespace zSpriteOld
     [StructLayout(LayoutKind.Sequential), Serializable]
 #if !( XBOX || XBOX360 )
 
-    public struct Radian : ISerializable, IComparable<Radian>, IComparable<Degree>, IComparable<float>
+    public struct Radian : ISerializable, IComparable<Radian>, IComparable<Degree>, IComparable<Real>
 #else
-	public struct Radian : IComparable<Radian>, IComparable<Degree>, IComparable<float>
+	public struct Radian : IComparable<Radian>, IComparable<Degree>, IComparable<Real>
 #endif
     {
-        private static readonly float _radiansToDegrees = 180.0f / Utility.PI;
+        private static readonly Real _radiansToDegrees = 180.0f / Utility.PI;
 
-        public static readonly Radian Zero = new Radian(0f);
+        public static readonly Radian Zero = (Radian)Real.Zero;
 
-        private float _value;
+        private Real _value;
 
-        public Radian(float r)
+        public Radian(Real r)
         {
             _value = r;
         }
@@ -89,7 +74,7 @@ namespace zSpriteOld
 
         public Degree InDegrees { get { return _value * _radiansToDegrees; } }
 
-        public static implicit operator Radian(float value)
+        public static implicit operator Radian(Real value)
         {
             Radian retVal;
             retVal._value = value;
@@ -103,12 +88,12 @@ namespace zSpriteOld
             return retVal;
         }
 
-        //public static implicit operator Radian(Numeric value)
-        //{
-        //    Radian retVal;
-        //    retVal._value = value;
-        //    return retVal;
-        //}
+        public static implicit operator Radian(Numeric value)
+        {
+            Radian retVal;
+            retVal._value = value;
+            return retVal;
+        }
 
         public static explicit operator Radian(int value)
         {
@@ -117,17 +102,17 @@ namespace zSpriteOld
             return retVal;
         }
 
-        public static implicit operator float(Radian value)
+        public static implicit operator Real(Radian value)
         {
-            return (float)value._value;
+            return (Real)value._value;
         }
 
-        //public static explicit operator Numeric(Radian value)
-        //{
-        //    return (Numeric)value._value;
-        //}
+        public static explicit operator Numeric(Radian value)
+        {
+            return (Numeric)value._value;
+        }
 
-        public static Radian operator +(Radian left, float right)
+        public static Radian operator +(Radian left, Real right)
         {
             return left._value + right;
         }
@@ -147,7 +132,7 @@ namespace zSpriteOld
             return -r._value;
         }
 
-        public static Radian operator -(Radian left, float right)
+        public static Radian operator -(Radian left, Real right)
         {
             return left._value - right;
         }
@@ -162,12 +147,12 @@ namespace zSpriteOld
             return left - right.InRadians;
         }
 
-        public static Radian operator *(Radian left, float right)
+        public static Radian operator *(Radian left, Real right)
         {
             return left._value * right;
         }
 
-        public static Radian operator *(float left, Radian right)
+        public static Radian operator *(Real left, Radian right)
         {
             return left * right._value;
         }
@@ -182,7 +167,7 @@ namespace zSpriteOld
             return left._value * right.InRadians;
         }
 
-        public static Radian operator /(Radian left, float right)
+        public static Radian operator /(Radian left, Real right)
         {
             return left._value / right;
         }
@@ -223,7 +208,7 @@ namespace zSpriteOld
 
         private Radian(SerializationInfo info, StreamingContext context)
         {
-            _value = (float)info.GetValue("value", typeof(float));
+            _value = (Real)info.GetValue("value", typeof(Real));
         }
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
@@ -248,7 +233,7 @@ namespace zSpriteOld
             return this._value.CompareTo(other.InRadians);
         }
 
-        public int CompareTo(float other)
+        public int CompareTo(Real other)
         {
             return this._value.CompareTo(other);
         }

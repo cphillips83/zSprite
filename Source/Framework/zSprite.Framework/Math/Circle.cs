@@ -1,53 +1,31 @@
-﻿#region LGPL License
+﻿#region GPLv3 License
 
 /*
-Axiom Graphics Engine Library
-Copyright © 2003-2011 Axiom Project Team
-
-The overall design, and a majority of the core engine and rendering code 
-contained within this library is a derivative of the open source Object Oriented 
-Graphics Engine OGRE, which can be found at http://ogre.sourceforge.net.  
-Many thanks to the OGRE team for maintaining such a high quality project.
-
-The math library included in this project, in addition to being a derivative of
-the works of Ogre, also include derivative work of the free portion of the 
-Wild Magic mathematics source code that is distributed with the excellent
-book Game Engine Design.
-http://www.wild-magic.com/
+zSprite
+Copyright © 2014 zSprite Project Team
 
 This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+modify it under the terms of the GNU General Public License V3
+as published by the Free Software Foundation; either
+version 3 of the License, or (at your option) any later version.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
+General Public License V3 for more details.
 
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
+You should have received a copy of the GNU General Public License V3
+along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
 #endregion
 
-#region SVN Version Information
-
-// <file>
-//     <license see="http://axiom3d.net/wiki/index.php/license.txt"/>
-//     <id value="$Id: Circle.cs 2940 2012-01-05 12:25:58Z borrillis $"/>
-// </file>
-
-#endregion SVN Version Information
-
 #region Namespace Declarations
 
-using System;
-using Microsoft.Xna.Framework;
-
 #endregion Namespace Declarations
-namespace zSpriteOld
+
+namespace zSprite
 {
     /// <summary>
     ///		A standard Circle, used mostly for bounds checking.
@@ -130,7 +108,7 @@ namespace zSpriteOld
         {
             var radiusSq = radius * radius;
             var cp = line.closest(center);
-            return (cp - center).LengthSquared() <= radiusSq;
+            return (cp - center).LengthSquared <= radiusSq;
         }
 
         /// <summary>
@@ -140,7 +118,7 @@ namespace zSpriteOld
         /// <returns>True if the spheres intersect, false otherwise.</returns>
         public bool Intersects(Circle Circle)
         {
-            return ((Circle.center - center).Length() <= (Circle.radius + radius));
+            return ((Circle.center - center).Length <= (Circle.radius + radius));
         }
 
         /// <summary>
@@ -148,7 +126,7 @@ namespace zSpriteOld
         /// </summary>
         /// <param name="box"></param>
         /// <returns>True if the box intersects, false otherwise.</returns>
-        public bool Intersects(AxisAlignedBox box)
+        public bool Intersects(AxisAlignedBox2 box)
         {
             return Utility.Intersects(this, box);
         }
@@ -170,7 +148,7 @@ namespace zSpriteOld
         /// <returns>True if the vector intersects, false otherwise.</returns>
         public bool Intersects(Vector2 vector)
         {
-            return (vector - center).Length() <= radius;
+            return (vector - center).Length <= radius;
         }
 
         #endregion Intersection methods

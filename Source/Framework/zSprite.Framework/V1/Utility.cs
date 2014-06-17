@@ -47,7 +47,8 @@ using Microsoft.Xna.Framework;
 //using Degree = System.Single;
 
 #endregion Namespace Declarations
-
+namespace zSpriteOld
+{
     public sealed class Utility
     {
         public static readonly float PI = (float)System.Math.PI;
@@ -796,7 +797,7 @@ using Microsoft.Xna.Framework;
                         lowt = t;
                     }
                 }
-            }            
+            }
 
             return new IntersectResult(hit, lowt);
         }
@@ -1715,3 +1716,4 @@ using Microsoft.Xna.Framework;
     }
 
     #endregion Return result structures
+}
