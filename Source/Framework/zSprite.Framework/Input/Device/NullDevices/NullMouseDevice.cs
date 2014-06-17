@@ -22,53 +22,38 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #endregion
 
 #region Namespace Declarations
+
 using System.Collections.Generic;
+
 #endregion Namespace Declarations
 
 namespace zSprite
 {
-    public struct MouseButton : Input
+    public class NullMouseDevice : MouseDevice
     {
-        private InputType type;
-        private int id;
-        private string displayName;
-        private string name;
-        private HashSet<string> identifiers;
-
-        public MouseButton(InputType type, int id, string name, string displayName, params string[] alternateStrings)
+        public override Vector2i getPosition()
         {
-            this.type = type;
-            this.id = (int)id;
-            this.name = name;
-            this.displayName = displayName;
-            this.identifiers = new HashSet<string>(alternateStrings);
+            return new Vector2i();
         }
 
-        public InputType getType()
+        public override Vector2i getDelta()
         {
-            return type;
+            return new Vector2i();
         }
 
-        public IEnumerable<string> identifiers1()
+        public override bool isButtonDown(int button)
         {
-            foreach (var i in identifiers)
-                yield return i;
+            return false;
         }
 
-        public int getId()
+        public override bool isVisible()
         {
-            return id;
+            return false;
         }
 
-        public string getName()
+        public override Queue<InputAction> getInputQueue()
         {
-            return name;
-        }
-
-        public string getDisplayName()
-        {
-            return displayName;
+            return new Queue<InputAction>();
         }
     }
-
 }

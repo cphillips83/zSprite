@@ -54,12 +54,21 @@
     <Compile Include="Engine\Uri\SimpleUri.cs" />
     <Compile Include="Engine\Uri\Uri.cs" />
     <Compile Include="Engine\Uri\UriUtil.cs" />
+    <Compile Include="EntitySystem\Event\IEvent.cs" />
+    <Compile Include="EntitySystem\Systems\BaseComponentSystem.cs" />
+    <Compile Include="EntitySystem\Systems\ComponentSystem.cs" />
+    <Compile Include="Input\ButtonState.cs" />
+    <Compile Include="Input\Device\InputAction.cs" />
+    <Compile Include="Input\Device\InputDevice.cs" />
+    <Compile Include="Input\Device\KeyboardDevice.cs" />
+    <Compile Include="Input\Device\MouseDevice.cs" />
+    <Compile Include="Input\Device\NullDevices\NullKeyboardDevice.cs" />
+    <Compile Include="Input\Device\NullDevices\NullMouseDevice.cs" />
     <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\InputSystem.cs" />
     <Compile Include="Input\InputType.cs" />
-    <Compile Include="Input\Key.cs" />
-    <Compile Include="Input\KeyCodes.cs" />
     <Compile Include="Input\Keyboard.cs" />
-    <Compile Include="Input\MouseButton.cs" />
+    <Compile Include="Input\Mouse.cs" />
     <Compile Include="Input\MouseInput.cs" />
     <Compile Include="Input\UnknownInput.cs" />
     <Compile Include="Math\Axis.cs" />
@@ -72,6 +81,7 @@
     <Compile Include="Math\Collections\QuaternionCollection.cs" />
     <Compile Include="Math\Collections\Vector3Collection.cs" />
     <Compile Include="Math\Color.cs" />
+    <Compile Include="Math\Vector2i.cs" />
     <Compile Include="Math\Degree.cs" />
     <Compile Include="Math\Enums.cs" />
     <Compile Include="Math\LineSegment.cs" />
@@ -100,6 +110,7 @@
     <Compile Include="Math\Vector3.cs" />
     <Compile Include="Math\Vector3i.cs" />
     <Compile Include="Math\Vector4.cs" />
+    <Compile Include="PropertyChangeSupport.cs" />
     <Compile Include="Utilities\Contract.cs" />
     <Compile Include="Utilities\ExceptionFactory.cs" />
     <Compile Include="Utilities\Proclaim.cs" />
@@ -223,6 +234,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="V1\Input\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config\AudioConfig.cs" />
+    <Content Include="Config\BindsConfig.java" />
+    <Content Include="Config\ClientIdentity.java" />
+    <Content Include="Config\Config.java" />
+    <Compile Include="Config\InputConfig.cs" />
+    <Content Include="Config\ModuleConfig.java" />
+    <Content Include="Config\NetworkConfig.java" />
+    <Content Include="Config\PlayerConfig.java" />
+    <Content Include="Config\RenderingConfig.java" />
+    <Content Include="Config\RenderingDebugConfig.java" />
+    <Content Include="Config\SecurityConfig.java" />
+    <Content Include="Config\ServerInfo.java" />
+    <Content Include="Config\SystemConfig.java" />
+    <Content Include="Config\WorldGenerationConfig.java" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!--

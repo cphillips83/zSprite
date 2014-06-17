@@ -28,38 +28,11 @@ using System.Collections.Generic;
 
 namespace zSprite
 {
-
-
     /// <summary>
     /// The type of an input
     /// </summary>
     public abstract class InputType
     {
-        //MOUSE_BUTTON {
-        //    @Override
-        //    public Input getInput(int id) {
-        //        return MouseInput.find(this, id);
-        //    }
-
-        //    @Override
-        //    public Input getInput(String name) {
-        //        return MouseInput.find(name);
-        //    }
-        //},
-        //MOUSE_WHEEL {
-        //    @Override
-        //    public Input getInput(int id) {
-        //        return MouseInput.find(this, id);
-        //    }
-
-        //    @Override
-        //    public Input getInput(String name) {
-        //        return MouseInput.find(name);
-        //    }
-        //},
-       
-        //};
-
         #region Input Types
 
         protected class NoneInputType : InputType
@@ -86,12 +59,12 @@ namespace zSprite
         {
             public override Input getInput(int id)
             {
-                return Keyboard.find(id);
+                return Keyboard.Key.find(id);
             }
 
             public override Input getInput(string name)
             {
-                return Keyboard.find(name);
+                return Keyboard.Key.find(name);
             }
         }
 

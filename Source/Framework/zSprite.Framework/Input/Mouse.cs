@@ -27,40 +27,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 namespace zSprite
 {
-
-    public struct Key : Input
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class Mouse
     {
-        public int id;
-        public string name;
-        public string displayName;
-
-        public Key(KeyCodes id, string name, string displayName)
-        {
-            this.id = (int)id;
-            this.name = name;
-            this.displayName = displayName;
+        public static Vector2 getPosition() {
+            return CoreRegistry.get<InputSystem>().getMouseDevice().getPosition();
         }
 
-
-        public InputType getType()
-        {
-            return InputType.KEY;
+        public static bool getButtonState(int button) {
+            return CoreRegistry.get<InputSystem>().getMouseDevice().isButtonDown(button);
         }
 
-        public int getId()
-        {
-            return id;
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public string getDisplayName()
-        {
-            return displayName;
+        public static bool isVisible() {
+            return CoreRegistry.get<InputSystem>().getMouseDevice().isVisible();
         }
     }
-
 }
