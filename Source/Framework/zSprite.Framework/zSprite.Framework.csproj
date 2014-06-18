@@ -250,6 +250,18 @@
     <Content Include="Config\ServerInfo.java" />
     <Content Include="Config\SystemConfig.java" />
     <Content Include="Config\WorldGenerationConfig.java" />
+    <Compile Include="Input\ActivateMode.cs" />
+    <Compile Include="Input\BindableAxis.cs" />
+    <Content Include="Input\BindableButton.java" />
+    <Content Include="Input\BindAxisEvent.java" />
+    <Content Include="Input\BindAxisSubscriber.java" />
+    <Content Include="Input\BindButtonEvent.java" />
+    <Content Include="Input\BindButtonSubscriber.java" />
+    <Content Include="Input\DefaultBinding.java" />
+    <Content Include="Input\InputCategory.java" />
+    <Content Include="Input\RegisterBindAxis.java" />
+    <Content Include="Input\RegisterBindButton.java" />
+    <Compile Include="Input\SendEventMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!--
