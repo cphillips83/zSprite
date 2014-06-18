@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,24 +14,26 @@
  * limitations under the License.
  */
 
-package org.terasology.input;
+namespace org.terasology.input
+{
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
-/**
- * @author Immortius
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface RegisterBindAxis {
-    String id();
+	/// <summary>
+	/// @author Immortius
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false]
+	public class RegisterBindButton : System.Attribute
+	{
+		string id();
 
-    String positiveButton();
+		/// <returns> The category this bind button belongs to, if not explicitly listed in the category </returns>
+		string category() default "";
 
-    String negativeButton();
+		string description() default "";
 
-    SendEventMode eventMode() default SendEventMode.WHEN_NON_ZERO;
+		ActivateMode mode() default ActivateMode.BOTH;
+
+		bool repeating() default false;
+	}
+
 }

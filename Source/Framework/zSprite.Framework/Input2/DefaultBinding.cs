@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package org.terasology.input;
+namespace org.terasology.input
+{
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
-/**
- * @author Immortius
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface DefaultBinding {
-    InputType type();
+	/// <summary>
+	/// @author Immortius
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false]
+	public class DefaultBinding : System.Attribute
+	{
+		InputType type();
 
-    int id();
+		int id();
+	}
+
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,35 +14,20 @@
  * limitations under the License.
  */
 
-package org.terasology.input;
+using System;
+namespace zSprite
+{
 
-import org.terasology.input.events.AxisEvent;
 
-/**
- * @author Immortius
- */
-public class BindAxisEvent extends AxisEvent {
+	/// <summary>
+	/// @author Immortius
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	public class DefaultBinding : System.Attribute
+	{
+		InputType type();
 
-    private String id;
-    private float value;
-
-    public BindAxisEvent() {
-        super(0);
-    }
-
-    @Override
-    public float getValue() {
-        return value;
-    }
-
-    public void prepare(String axisId, float axisValue, float delta) {
-        reset(delta);
-        this.id = axisId;
-        this.value = axisValue;
-    }
-
-    public String getId() {
-        return id;
-    }
+		int id();
+	}
 
 }

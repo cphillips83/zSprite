@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2013 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,13 +14,24 @@
  * limitations under the License.
  */
 
-package org.terasology.input;
+using System;
+namespace zSprite
+{
 
-import org.terasology.entitySystem.entity.EntityRef;
 
-/**
- * @author Immortius
- */
-public interface BindAxisSubscriber {
-    void update(float value, float delta, EntityRef target);
+	/// <summary>
+	/// @author Immortius
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	public class RegisterBindAxis : System.Attribute
+	{
+		string id();
+
+		string positiveButton();
+
+		string negativeButton();
+
+		SendEventMode eventMode();// default SendEventMode.WHEN_NON_ZERO;
+	}
+
 }

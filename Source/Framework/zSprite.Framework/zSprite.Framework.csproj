@@ -57,7 +57,13 @@
     <Compile Include="EntitySystem\Event\IEvent.cs" />
     <Compile Include="EntitySystem\Systems\BaseComponentSystem.cs" />
     <Compile Include="EntitySystem\Systems\ComponentSystem.cs" />
+    <Compile Include="Input\BindableButton.cs" />
+    <Compile Include="Input\BindAxisEvent.cs" />
+    <Compile Include="Input\BindAxisSubscriber.cs" />
+    <Compile Include="Input\BindButtonEvent.cs" />
+    <Compile Include="Input\BindButtonSubscriber.cs" />
     <Compile Include="Input\ButtonState.cs" />
+    <Compile Include="Input\DefaultBinding.cs" />
     <Compile Include="Input\Device\InputAction.cs" />
     <Compile Include="Input\Device\InputDevice.cs" />
     <Compile Include="Input\Device\KeyboardDevice.cs" />
@@ -65,11 +71,14 @@
     <Compile Include="Input\Device\NullDevices\NullKeyboardDevice.cs" />
     <Compile Include="Input\Device\NullDevices\NullMouseDevice.cs" />
     <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\InputCategory.cs" />
     <Compile Include="Input\InputSystem.cs" />
     <Compile Include="Input\InputType.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
     <Compile Include="Input\MouseInput.cs" />
+    <Compile Include="Input\RegisterBindAxis.cs" />
+    <Compile Include="Input\RegisterBindButton.cs" />
     <Compile Include="Input\UnknownInput.cs" />
     <Compile Include="Math\Axis.cs" />
     <Compile Include="Math\AxisAlignedBox2.cs" />
@@ -252,15 +261,6 @@
     <Content Include="Config\WorldGenerationConfig.java" />
     <Compile Include="Input\ActivateMode.cs" />
     <Compile Include="Input\BindableAxis.cs" />
-    <Content Include="Input\BindableButton.java" />
-    <Content Include="Input\BindAxisEvent.java" />
-    <Content Include="Input\BindAxisSubscriber.java" />
-    <Content Include="Input\BindButtonEvent.java" />
-    <Content Include="Input\BindButtonSubscriber.java" />
-    <Content Include="Input\DefaultBinding.java" />
-    <Content Include="Input\InputCategory.java" />
-    <Content Include="Input\RegisterBindAxis.java" />
-    <Content Include="Input\RegisterBindButton.java" />
     <Compile Include="Input\SendEventMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
