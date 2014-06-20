@@ -5,7 +5,7 @@ using System.Text;
 
 namespace zSprite.EntitySystem.Event
 {
-    public interface IEvent
+    public interface IEvent_
     {
     }
 }

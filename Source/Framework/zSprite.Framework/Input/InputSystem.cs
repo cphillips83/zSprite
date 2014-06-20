@@ -12,7 +12,7 @@ namespace zSprite
      * In addition to raw keyboard and mouse input, the system handles Bind Buttons and Bind Axis, which can be mapped
      * to one or more inputs.
      */
-    public class InputSystem : BaseComponentSystem
+    public class InputSystem : BaseComponentSystem_
     {
 
         //@In

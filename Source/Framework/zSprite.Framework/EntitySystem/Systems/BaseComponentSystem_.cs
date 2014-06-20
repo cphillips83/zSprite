@@ -5,7 +5,7 @@ using System.Text;
 
 namespace zSprite.EntitySystem.Systems
 {
-    public abstract class BaseComponentSystem : ComponentSystem
+    public abstract class BaseComponentSystem_ : ComponentSystem_
     {
 
         public abstract void initialise();

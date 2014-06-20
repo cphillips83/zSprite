@@ -5,7 +5,7 @@ using System.Text;
 
 namespace zSprite.EntitySystem.Systems
 {
-    public interface ComponentSystem
+    public interface ComponentSystem_
     {
         /// <summary>
         /// Called to initialise the system. This occurs after injection, but before other systems are necessarily initialised, so they should not be interacted with

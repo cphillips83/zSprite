@@ -62,7 +62,7 @@ namespace zSprite
 
 		#region Static
 
-		private static readonly Vector2i zeroVector = new Vector2i( 0.0f, 0.0f );
+		private static readonly Vector2i zeroVector = new Vector2i( 0, 0 );
 
 		/// <summary>
 		///		Gets a Vector2i with all components set to 0.
