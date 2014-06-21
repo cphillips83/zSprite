@@ -65,8 +65,10 @@
   <ItemGroup>
     <Compile Include="Core\ConsoleLogger.cs" />
     <Compile Include="Core\DisposableObject.cs" />
+    <Compile Include="Core\ITimeManager.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Singleton.cs" />
+    <Compile Include="Core\Time.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Engine\IGameState.cs" />
     <Compile Include="Events\StateChangeEvent.cs" />

@@ -22,6 +22,16 @@ namespace Atma.Asteroids.Engine
 
         public void init()
         {
+            logger.info("Initializing Atma Asteroids...");
+            logger.info("Version: 0.1 ALPHA");
+            //logger.info("Home path: {}", PathManager.getInstance().getHomePath());
+            //logger.info("Install path: {}", PathManager.getInstance().getInstallPath());
+            //logger.info("Java: {} in {}", System.getProperty("java.version"), System.getProperty("java.home"));
+            //logger.info("Java VM: {}, version: {}", System.getProperty("java.vm.name"), System.getProperty("java.vm.version"));
+            //logger.info("OS: {}, arch: {}, version: {}", System.getProperty("os.name"), System.getProperty("os.arch"), System.getProperty("os.version"));
+            //logger.info("Max. Memory: {} MB", Runtime.getRuntime().maxMemory() / (1024 * 1024));
+            //logger.info("Processors: {}", Runtime.getRuntime().availableProcessors());
+
         }
 
         public void run(IGameState initialState)

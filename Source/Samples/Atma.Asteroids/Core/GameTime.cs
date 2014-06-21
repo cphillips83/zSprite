@@ -1,0 +1,165 @@
+﻿using Atma.Core;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+
+namespace Atma.Asteroids.Core
+{
+    public class StopwatchTime : TimeBase
+    {
+        private Stopwatch _stopwatch = Stopwatch.StartNew();
+        public override long rawTimeInMs
+        {
+            get { return _stopwatch.ElapsedMilliseconds; }
+        }
+    }
+
+    public abstract class TimeBase : IGameTime
+    {
+        private static readonly Logger logger = Logger.getLogger(typeof(TimeBase));
+
+        private const float DECAY_RATE = 0.95f;
+        private static readonly float ONE_MINUS_DECAY_RATE = 1.0f - DECAY_RATE;
+        private const float RESYNC_TIME_RATE = 0.1f;
+
+        private const int MAX_UPDATE_CYCLE_LENGTH = 5000;
+        private const int UPDATE_CAP = 1000;
+
+        private long _last = 0;
+        private long _delta = 0;
+        private float _avgDelta;
+        private long _desynch;
+        private bool _paused;
+        private bool _isSlow = false;
+
+        private long _gameTime = 0;
+
+        public abstract long rawTimeInMs { get; }
+
+        public float delta { get { return _delta / 1000f; } }
+
+        public long deltaInMs { get { return _delta; } }
+
+        public float fps { get { return 1000.0f / _avgDelta; } }
+
+        public long gameTimeInMs { get { return _gameTime; } }
+
+        public float gameTime { get { return _gameTime / 1000f; } }
+
+        public void setGameTime(long amount)
+        {
+            _delta = 0;
+            _gameTime = amount;
+        }
+
+        public long realTimeInMs { get { return rawTimeInMs; } }
+
+        public void updateTimeFromServer(long targetTime)
+        {
+            _desynch = targetTime - gameTimeInMs;
+        }
+
+        public bool paused
+        {
+            set { this._paused = value; }
+            get { return _paused; }
+        }
+
+        /// <summary>
+        /// Increments time
+        /// </summary>
+        /// <returns> The number of update cycles to run </returns>
+        public virtual IEnumerable<float> tick()
+        {
+            long now = rawTimeInMs;
+            long totalDelta = now - _last;
+            while (0 == totalDelta)
+            {
+                Thread.Sleep(0);
+                now = rawTimeInMs;
+                totalDelta = now - _last;
+            }
+
+            if (totalDelta >= MAX_UPDATE_CYCLE_LENGTH)
+            {
+                logger.warn("Delta too great ({0}), capping to {1}", totalDelta, MAX_UPDATE_CYCLE_LENGTH);
+                totalDelta = MAX_UPDATE_CYCLE_LENGTH;
+            }
+
+            _isSlow = (totalDelta > UPDATE_CAP);
+            _last = now;
+            _avgDelta = _avgDelta * DECAY_RATE + totalDelta * ONE_MINUS_DECAY_RATE;
+
+            while (totalDelta > 0)
+            {
+                var newDelta = totalDelta;
+                if (newDelta > UPDATE_CAP)
+                    newDelta = UPDATE_CAP;
+
+                totalDelta -= newDelta;
+
+                // Reduce desynch between server time
+                if (_desynch != 0)
+                {
+                    long diff = (long)Math.Ceiling(_desynch * RESYNC_TIME_RATE);
+                    if (diff == 0)
+                    {
+                        diff = (long)Math.Sign(_desynch);
+                    }
+                    _gameTime += diff;
+                    _desynch -= diff;
+                }
+
+                _gameTime += newDelta;
+                if (paused)
+                    _delta = 0;
+                else
+                    _delta = newDelta;
+
+                yield return _delta / 1000f;
+            }
+        }
+
+        public long getRawTimeInMs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setPaused(bool pause)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool isSlow
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public float getDelta()
+        {
+            throw new NotImplementedException();
+        }
+
+        public long getDeltaInMs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public float getFps()
+        {
+            throw new NotImplementedException();
+        }
+
+        public long getGameTimeInMs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public long getRealTimeInMs()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+}
