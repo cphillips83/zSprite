@@ -15,6 +15,23 @@ namespace Atma.Asteroids.Core
         }
     }
 
+    public class TestTime : TimeBase
+    {
+        private long _rawTime = 0;
+        public override long rawTimeInMs
+        {
+            get {
+                
+                return _rawTime;
+            }
+        }
+
+        public void step()
+        {
+            _rawTime += 10;
+        }
+    }
+
     public abstract class TimeBase : IGameTime
     {
         private static readonly Logger logger = Logger.getLogger(typeof(TimeBase));
@@ -23,8 +40,8 @@ namespace Atma.Asteroids.Core
         private static readonly float ONE_MINUS_DECAY_RATE = 1.0f - DECAY_RATE;
         private const float RESYNC_TIME_RATE = 0.1f;
 
-        private const int MAX_UPDATE_CYCLE_LENGTH = 5000;
-        private const int UPDATE_CAP = 1000;
+        private const int MAX_UPDATE_CYCLE_LENGTH = 100;
+        private const int UPDATE_CAP = 33;  //tries to keep the ticks at 30fps
 
         private long _last = 0;
         private long _delta = 0;
@@ -35,11 +52,18 @@ namespace Atma.Asteroids.Core
 
         private long _gameTime = 0;
 
+        public override string ToString()
+        {
+            return string.Format("Time {{ gt: {0}, avgdt: {1}, dt: {2}, fps: {3}, desynch: {4}, rt: {5} }}", gameTime, _avgDelta / 1000f, delta, fps, _desynch, realTimeInMs);
+        }
+
         public abstract long rawTimeInMs { get; }
 
         public float delta { get { return _delta / 1000f; } }
 
         public long deltaInMs { get { return _delta; } }
+
+        //public float avgDelta { get { return _avgDelta / 1000f; } }
 
         public float fps { get { return 1000.0f / _avgDelta; } }
 
@@ -81,18 +105,25 @@ namespace Atma.Asteroids.Core
                 totalDelta = now - _last;
             }
 
+            _isSlow = (totalDelta > UPDATE_CAP);
+            _last = now;
+            _avgDelta = _avgDelta * DECAY_RATE + totalDelta * ONE_MINUS_DECAY_RATE;
+
             if (totalDelta >= MAX_UPDATE_CYCLE_LENGTH)
             {
                 logger.warn("Delta too great ({0}), capping to {1}", totalDelta, MAX_UPDATE_CYCLE_LENGTH);
                 totalDelta = MAX_UPDATE_CYCLE_LENGTH;
             }
 
-            _isSlow = (totalDelta > UPDATE_CAP);
-            _last = now;
-            _avgDelta = _avgDelta * DECAY_RATE + totalDelta * ONE_MINUS_DECAY_RATE;
-
             while (totalDelta > 0)
             {
+                //skip this frame and add it to the next
+                if (_isSlow && totalDelta < UPDATE_CAP)
+                {
+                    _last -= totalDelta;
+                    yield break;
+                }
+
                 var newDelta = totalDelta;
                 if (newDelta > UPDATE_CAP)
                     newDelta = UPDATE_CAP;
@@ -111,11 +142,12 @@ namespace Atma.Asteroids.Core
                     _desynch -= diff;
                 }
 
-                _gameTime += newDelta;
                 if (paused)
                     _delta = 0;
                 else
                     _delta = newDelta;
+
+                _gameTime += _delta;
 
                 yield return _delta / 1000f;
             }
@@ -160,6 +192,8 @@ namespace Atma.Asteroids.Core
         {
             throw new NotImplementedException();
         }
+
+
     }
 
 }
