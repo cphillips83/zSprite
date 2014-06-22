@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="Engine\Subsystem\EngineSubsystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
