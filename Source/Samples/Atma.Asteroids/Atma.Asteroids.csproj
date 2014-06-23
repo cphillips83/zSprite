@@ -68,6 +68,7 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Engine\Subsystem\EngineSubsystem.cs" />
     <Compile Include="Entity\Component.cs" />
+    <Compile Include="Entity\ComponentMap.cs" />
     <Compile Include="Entity\ComponentTable.cs" />
     <Compile Include="Entity\EntityManager.cs" />
     <Compile Include="Entity\EntityRef.cs" />

@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Core\ConsoleLogger.cs" />
     <Compile Include="Core\DisposableObject.cs" />
     <Compile Include="Core\ITimeManager.cs" />

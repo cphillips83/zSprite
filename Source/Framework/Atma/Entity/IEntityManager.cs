@@ -13,7 +13,7 @@ namespace Atma.Entity
         event OnEntity onEntityRemove;
 
         IEntityRef create();
-        IEntityRef create(params IComponent[] components);
+        //IEntityRef create(params IComponent[] components);
         //IEntityRef create(string prefab);
         IEntityRef get(int id);
         void destroy(IEntityRef e);

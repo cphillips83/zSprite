@@ -10,42 +10,73 @@ namespace Atma.Asteroids.Entity
     public class EntityManager : IEntityManager
     {
         public event OnEntity onEntityChange;
-
         public event OnEntity onEntityAdd;
-
         public event OnEntity onEntityRemove;
+
+        private ComponentTable _componentTable = new ComponentTable();
+
+        private int _nextId = 0;
+        private Dictionary<int, EntityRef> _entities = new Dictionary<int, EntityRef>();
+        //private List<int> _freeIds = new List<int>();
 
         public IEntityRef create()
         {
-            throw new NotImplementedException();
+            var e = new EntityRef(++_nextId, this);
+            _entities.Add(e.id, e);
+
+            if (onEntityAdd != null)
+                onEntityAdd(e);
+
+            return e;
         }
 
-        public IEntityRef create(params IComponent[] components)
+        public IEntityRef create(params Component[] components)
         {
-            throw new NotImplementedException();
+            var e = new EntityRef(++_nextId, this);
+            _entities.Add(e.id, e);
+
+            foreach (var c in components)
+                _componentTable.add(e, c);
+
+            if (onEntityAdd != null)
+                onEntityAdd(e);
+
+            return e;
         }
 
         public IEntityRef get(int id)
         {
-            throw new NotImplementedException();
+            EntityRef e;
+            if (!_entities.TryGetValue(id, out e))
+                return null;
+
+            return e;
         }
 
-        public T addComponent<T>(T t)
+        public T addComponent<T>(EntityRef e, T t)
             where T : Component
         {
+            _componentTable.add(e, t);
+
+            if (onEntityChange != null)
+                onEntityChange(e);
 
             return t;
         }
 
-        public void removeComponent<T>(T t)
+        public void removeComponent<T>(EntityRef e, T t)
+            where T: Component
         {
+            _componentTable.remove(e, t);
 
+            if (onEntityChange != null)
+                onEntityChange(e);
         }
 
-        public T getComponent<T>()
+        public T getComponent<T>(EntityRef e)
             where T : Component
         {
-            return null;
+            return _componentTable.get<T>(e);
         }
 
         public IEnumerable<Component> getComponents(EntityRef e)
