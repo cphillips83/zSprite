@@ -67,6 +67,10 @@
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Engine\Subsystem\EngineSubsystem.cs" />
+    <Compile Include="Entity\Component.cs" />
+    <Compile Include="Entity\ComponentTable.cs" />
+    <Compile Include="Entity\EntityManager.cs" />
+    <Compile Include="Entity\EntityRef.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
