@@ -71,6 +71,10 @@
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Core\Time.cs" />
     <Compile Include="Core\IComponent.cs" />
+    <Compile Include="Core\Uri.cs" />
+    <Compile Include="Core\UriUtil.cs" />
+    <Compile Include="Engine\CoreRegistry.cs" />
+    <Compile Include="Engine\CoreRegistryUri.cs" />
     <Compile Include="Engine\IEntity.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Engine\IGameState.cs" />
@@ -80,17 +84,19 @@
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\IEntityManager.cs" />
     <Compile Include="Entity\IMutableComponentContainer.cs" />
+    <Compile Include="Entity\ISystem.cs" />
     <Compile Include="Events\Entity.cs" />
     <Compile Include="Events\StateChangeEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utiilties\Contract.cs" />
+    <Compile Include="Utiilties\ExceptionFactory.cs" />
+    <Compile Include="Utiilties\Proclaim.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Subsystems\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

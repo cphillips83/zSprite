@@ -8,7 +8,7 @@ namespace Atma.Engine
 {
     public interface IGameEngine : IDisposable
     {
-        void init();
+        //void init();
         
         void run(IGameState initialState);
 

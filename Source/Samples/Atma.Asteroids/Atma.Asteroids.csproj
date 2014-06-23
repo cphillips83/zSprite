@@ -66,14 +66,16 @@
   <ItemGroup>
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="Engine\Subsystem\EngineSubsystem.cs" />
+    <Compile Include="Engine\States\GameState.cs" />
     <Compile Include="Entity\Component.cs" />
     <Compile Include="Entity\ComponentMap.cs" />
     <Compile Include="Entity\ComponentTable.cs" />
     <Compile Include="Entity\EntityManager.cs" />
     <Compile Include="Entity\EntityRef.cs" />
+    <Compile Include="Entity\Indexer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\DummyState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Atma\Atma.csproj">

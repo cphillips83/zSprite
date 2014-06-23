@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Atma.Core;
 using Atma.Asteroids.Core;
+using Atma.Asteroids.Engine;
+using Atma.Asteroids.States;
 
 namespace Atma.Asteroids
 {
@@ -15,24 +17,28 @@ namespace Atma.Asteroids
         {
             new ConsoleLogger();
 
-            var time = new StopwatchTime();
-            time.updateTimeFromServer(5);
+            var ge = new GameEngine();
+            ge.run(new DummyState());
 
-            var r = new Random();
-            for (var i = 0; i < 1000; i++)
-            {
-                //time.step();
-                foreach (var tick in time.tick())
-                {
-                    logger.info(time.ToString());
-                }
+            //var time = new StopwatchTime();
+            //time.updateTimeFromServer(5);
+
+            //var r = new Random();
+            //for (var i = 0; i < 1000; i++)
+            //{
+            //    //time.step();
+            //    foreach (var tick in time.tick())
+            //    {
+            //        logger.info(time.ToString());
+            //    }
 
 
-                System.Threading.Thread.Sleep(33);
-            }
+            //    System.Threading.Thread.Sleep(33);
+            //}
 
-            logger.info("test");
+            //logger.info("test");
             Console.Read();
+            ge.shutdown();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Atma.Entity;
 
 namespace Atma.Asteroids.Entity
 {
@@ -22,6 +23,11 @@ namespace Atma.Asteroids.Entity
                 components.Remove(id);
 
             components.Add(id, c);
+        }
+
+        public bool has(int id)
+        {
+            return components.ContainsKey(id);
         }
 
         public Component get(int id)

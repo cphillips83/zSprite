@@ -6,5 +6,5 @@ using System.Text;
 
 namespace Atma.Events
 {
-    public delegate void OnEntity(IEntityRef e); 
+    public delegate void OnEntity(int id); 
 }

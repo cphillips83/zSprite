@@ -6,51 +6,54 @@ using System.Text;
 
 namespace Atma.Asteroids.Entity
 {
-    public class EntityRef : IEntityRef
+    public struct EntityRef : IEnumerable<Component>
     {
         private EntityManager _entityManager;
 
-        public EntityRef(int id, EntityManager em)
+        public EntityRef(int _id, EntityManager _em)
+            : this()
         {
-            this.id = id;
-            _entityManager = em;
+            id = _id;
+            _entityManager = _em;
         }
 
         public int id { get; private set; }
 
-        public T addComponent<T>(T t)
+        public bool exists { get { return _entityManager.exists(id); } }
+
+        public T addComponent<T>(string component, T t)
             where T : Component
         {
-            return _entityManager.addComponent(t);
+            return _entityManager.addComponent(id, component, t);
         }
 
-        public void removeComponent<T>(T t)
+        public void removeComponent(string component)
+            //where T : IComponent
+        {
+            _entityManager.removeComponent(id, component);
+        }
+
+        public bool hasComponent(string component)
+            //where T : IComponent
+        {
+            return _entityManager.hasetComponent(id, component);
+        }
+
+        public T getComponent<T>(string component)
             where T : Component
         {
-            _entityManager.removeComponent(t);
+            return _entityManager.getComponent<T>(id, component);
         }
 
-        public bool hasComponent<T>()
-            where T : Component
+        public IEnumerator<Component> GetEnumerator()
         {
-            return getComponent<T>() != null;
-        }
-
-        public T getComponent<T>()
-            where T : Component
-        {
-            return _entityManager.getComponent<T>();
-        }
-
-        public IEnumerator<object> GetEnumerator()
-        {
-            foreach (var c in _entityManager.getComponents(this))
+            foreach (var c in _entityManager.getComponents(id))
                 yield return c;
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            foreach (var c in _entityManager.getComponents(this))
+            foreach (var c in _entityManager.getComponents(id))
                 yield return c;
         }
     }

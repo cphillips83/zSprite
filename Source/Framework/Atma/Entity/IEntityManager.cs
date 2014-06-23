@@ -6,17 +6,18 @@ using System.Text;
 
 namespace Atma.Entity
 {
-    public interface IEntityManager : IEnumerable<IEntityRef>
+    public interface IEntityManager : IEnumerable<int>
     {
         event OnEntity onEntityChange;
         event OnEntity onEntityAdd;
         event OnEntity onEntityRemove;
 
-        IEntityRef create();
+        int create();
         //IEntityRef create(params IComponent[] components);
         //IEntityRef create(string prefab);
-        IEntityRef get(int id);
-        void destroy(IEntityRef e);
+        //int get(int id);
+        bool exists(int id);
+        void destroy(int e);
         int count { get; }
     }
 }

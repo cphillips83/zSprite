@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Atma.Entity
 {
-    public interface IComponentContainer : IEnumerable<object>
+    public interface IComponentContainer : IEnumerable<IComponent>
     {
-        bool hasComponent<T>();
-        T getComponent<T>();
+        bool hasComponent<T>() where T: IComponent;
+        T getComponent<T>() where T: IComponent;
     }
 }
