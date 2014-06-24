@@ -21,10 +21,7 @@ namespace Atma.Asteroids.Core
         private long _rawTime = 0;
         public override long rawTimeInMs
         {
-            get {
-                
-                return _rawTime;
-            }
+            get { return _rawTime; }
         }
 
         public void step()
