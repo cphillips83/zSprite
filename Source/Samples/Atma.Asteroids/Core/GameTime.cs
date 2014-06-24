@@ -33,7 +33,6 @@ namespace Atma.Asteroids.Core
     public abstract class TimeBase : IGameTime, ISubsystem
     {
         public static readonly GameUri Uri = "subsystem:time";
-
         private static readonly Logger logger = Logger.getLogger(typeof(TimeBase));
 
         private const float DECAY_RATE = 0.95f;
