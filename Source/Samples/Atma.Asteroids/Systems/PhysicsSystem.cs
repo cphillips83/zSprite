@@ -30,6 +30,10 @@ namespace Atma.Asteroids.Systems
                 var e = _manager.createRef(id);
                 var position = e.getComponent<Position>("position");
                 var velocity = e.getComponent<Velocity>("velocity");
+
+                position.x += velocity.x * delta;
+                position.y += velocity.y * delta;
+                //logger.info("updating {0} to {1}, {2}", id, position.x, position.y);
             }
         }
 

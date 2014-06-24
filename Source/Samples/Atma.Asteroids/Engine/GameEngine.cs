@@ -78,6 +78,7 @@ namespace Atma.Asteroids.Engine
         private void mainLoop()
         {
             logger.info("running");
+            _isRunning = true;
             while (_isRunning)
             {
                 processStateChanges();
@@ -87,12 +88,14 @@ namespace Atma.Asteroids.Engine
 
                 foreach (var tick in time.tick())
                 {
+                    //logger.info("tick {0}", tick);
+                    currentState.update(tick);
+
                     foreach (var system in _subsystems)
-                    {
                         system.preUpdate(tick);
-                        currentState.update(tick);
+
+                    foreach (var system in _subsystems)
                         system.postUpdate(tick);
-                    }
                 }
 
                 switchState(null);

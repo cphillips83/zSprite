@@ -70,7 +70,7 @@
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="Engine\Subsystems\GraphicsSubsystem.cs" />
     <Compile Include="Engine\Subsystems\ISubsystem.cs" />
-    <Compile Include="Engine\ComponentSystemManager.cs" />
+    <Compile Include="Systems\ComponentSystemManager.cs" />
     <Compile Include="Entity\Component.cs" />
     <Compile Include="Entity\ComponentMap.cs" />
     <Compile Include="Entity\ComponentTable.cs" />

@@ -7,6 +7,7 @@ using Atma.Engine;
 using Atma.Asteroids.Engine.Subsystems;
 using Atma.Asteroids.Entity;
 using Atma.Asteroids.Systems;
+using Atma.Asteroids.Components;
 
 namespace Atma.Asteroids.States
 {
@@ -29,6 +30,16 @@ namespace Atma.Asteroids.States
             _components.register(PhysicsSystem.Uri, new PhysicsSystem());
 
             _components.init();
+
+            var id = _entity.create();
+            
+            var position = _entity.addComponent(id, "position", new Position());
+            position.x = 1f;
+            position.y = 1f;
+
+            var velocity = _entity.addComponent(id, "velocity", new Velocity());
+            velocity.x = 2;
+            velocity.y = 1.5f;
         }
 
         public void end()
