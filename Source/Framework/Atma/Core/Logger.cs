@@ -26,7 +26,7 @@ namespace Atma.Core
 
         private Logger(Type type)
         {
-            module = type.Name.ToLower();
+            module = type.Name;
         }
 
         #region Methods

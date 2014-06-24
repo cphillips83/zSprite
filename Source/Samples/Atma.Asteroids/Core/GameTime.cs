@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using Atma.Engine;
 
 namespace Atma.Asteroids.Core
 {

@@ -74,6 +74,7 @@
     <Compile Include="Core\Uri.cs" />
     <Compile Include="Core\UriUtil.cs" />
     <Compile Include="Engine\CoreRegistry.cs" />
+    <Compile Include="Engine\GameUri.cs" />
     <Compile Include="Engine\IEntity.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Engine\IGameState.cs" />

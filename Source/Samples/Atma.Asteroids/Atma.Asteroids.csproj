@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Atma.Asteroids</RootNamespace>
     <AssemblyName>Atma.Asteroids</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -56,6 +56,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependency\OpenTK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,12 +71,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AbstractAsset.cs" />
+    <Compile Include="Assets\AssetFactory.cs" />
+    <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Assets\Assets.cs" />
+    <Compile Include="Assets\AssetType.cs" />
+    <Compile Include="Assets\AssetUri.cs" />
+    <Compile Include="Assets\IAsset.cs" />
+    <Compile Include="Assets\IAssetData.cs" />
+    <Compile Include="Assets\Types\IRenderable.cs" />
+    <Compile Include="Assets\Types\Mesh.cs" />
+    <Compile Include="Assets\Types\MeshData.cs" />
     <Compile Include="Components\Position.cs" />
     <Compile Include="Components\Velocity.cs" />
     <Compile Include="Core\GameTime.cs" />
+    <Compile Include="Engine\Subsystems\OpenTK\OpenTKMesh.cs" />
+    <Compile Include="Engine\Subsystems\ViewportSubsystem.cs" />
+    <Compile Include="Engine\Subsystems\DisplaySubsystem.cs" />
     <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="Engine\IDisplayDevice.cs" />
     <Compile Include="Engine\Subsystems\GraphicsSubsystem.cs" />
     <Compile Include="Engine\Subsystems\ISubsystem.cs" />
+    <Compile Include="Engine\Subsystems\OpenTK\OpenTKDisplaySubsystem.cs" />
+    <Compile Include="Engine\Subsystems\OpenTK\OpenTKGraphicsSubsystem.cs" />
+    <Compile Include="Engine\Subsystems\OpenTK\OpenTKViewportSubsystem.cs" />
+    <Compile Include="Engine\Subsystems\Xna\XnaGraphicsSubystem.cs" />
+    <Compile Include="Engine\Subsystems\Xna\XnaSubsystem.cs" />
+    <Compile Include="Engine\Subsystems\Xna\XnaViewportSubsystem.cs" />
     <Compile Include="Systems\ComponentSystemManager.cs" />
     <Compile Include="Entity\Component.cs" />
     <Compile Include="Entity\ComponentMap.cs" />
@@ -89,6 +117,10 @@
       <Name>Atma</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

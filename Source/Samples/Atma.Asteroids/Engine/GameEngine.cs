@@ -56,6 +56,8 @@ namespace Atma.Asteroids.Engine
             foreach (var s in _subsystems)
                 CoreRegistry.putPermanently(s.uri, s);
 
+            CoreRegistry.putPermanently(Assets.AssetManager.Uri, new Assets.AssetManager());
+
             foreach (var s in _subsystems)
                 s.init();
 
@@ -73,13 +75,17 @@ namespace Atma.Asteroids.Engine
             mainLoop();
 
             cleanUp();
+
+            shutdown();
         }
 
         private void mainLoop()
         {
+            var display = CoreRegistry.require<DisplayDevice>(DisplayDevice.Uri);
+
             logger.info("running");
             _isRunning = true;
-            while (_isRunning)
+            while (_isRunning && !display.closeRequest)
             {
                 processStateChanges();
 
@@ -89,18 +95,19 @@ namespace Atma.Asteroids.Engine
                 foreach (var tick in time.tick())
                 {
                     //logger.info("tick {0}", tick);
-                    currentState.update(tick);
 
                     foreach (var system in _subsystems)
                         system.preUpdate(tick);
+
+                    currentState.update(tick);
 
                     foreach (var system in _subsystems)
                         system.postUpdate(tick);
                 }
 
-                switchState(null);
-
+                //switchState(null);
             }
+
         }
 
         private void cleanUp()
@@ -163,6 +170,7 @@ namespace Atma.Asteroids.Engine
             {
                 _state.end();
                 _state = null;
+                _isRunning = false;
             }
 
             _state = state;
