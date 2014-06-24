@@ -6,6 +6,7 @@ using Atma.Core;
 using Atma.Asteroids.Core;
 using Atma.Asteroids.Engine;
 using Atma.Asteroids.States;
+using Atma.Asteroids.Engine.Subsystems;
 
 namespace Atma.Asteroids
 {
@@ -17,7 +18,7 @@ namespace Atma.Asteroids
         {
             new ConsoleLogger();
 
-            var ge = new GameEngine();
+            var ge = new GameEngine(new ISubsystem[] {new StopwatchTime(),  new GraphicsSubsystem() });
             ge.run(new DummyState());
 
             //var time = new StopwatchTime();
@@ -37,8 +38,8 @@ namespace Atma.Asteroids
             //}
 
             //logger.info("test");
-            Console.Read();
             ge.shutdown();
+            Console.Read();
         }
     }
 }

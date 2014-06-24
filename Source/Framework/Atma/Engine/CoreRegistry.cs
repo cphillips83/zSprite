@@ -80,6 +80,33 @@ namespace Atma.Engine
         }
 
         /// <summary>
+        /// Looks up a system and throws an exception if it doesn't exist
+        /// </summary>
+        /// <typeparam name="T">The type to cast to</typeparam>
+        /// <param name="uri">Uri path</param>
+        /// <returns>The system fulfilling the given interface</returns>
+        public static T require<T>(GameUri uri)
+            where T : class
+        {
+            if (uri.isValid())
+            {
+                object obj;
+                if (_store.TryGetValue(uri, out obj))
+                {
+                    T t = obj as T;
+                    if (t != null)
+                        return t;
+
+                    logger.error("invalid cast {0} to {1}", obj.GetType().Name, typeof(T).Name);
+                }
+            }
+            else
+                logger.error("invalid uri");
+
+            throw new Exception(string.Format("{0} is required", uri));
+        }
+
+        /// <summary>
         /// Looks up the system fulfilling the given interface
         /// </summary>
         /// <typeparam name="T">The type to cast to</typeparam>
@@ -122,6 +149,7 @@ namespace Atma.Engine
 
         public static void shutdown()
         {
+            logger.info("shutdown");
             var objsToClear = new List<string>(_store.Keys);
 
             foreach (var key in objsToClear)

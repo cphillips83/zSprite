@@ -1,4 +1,6 @@
-﻿using Atma.Entity;
+﻿using Atma.Asteroids.Engine.Subsystems;
+using Atma.Core;
+using Atma.Entity;
 using Atma.Events;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ namespace Atma.Asteroids.Entity
 {
     public class EntityManager : IEntityManager
     {
+        public static readonly GameUri Uri = "subsystem:entity";
+
         public event OnEntity onEntityChange;
         public event OnEntity onEntityAdd;
         public event OnEntity onEntityRemove;
@@ -88,6 +92,25 @@ namespace Atma.Asteroids.Entity
             return _componentTable.getAll(id);
         }
 
+        public IEnumerable<int> getWithComponents(params string[] components)
+        {
+            foreach (var id in _entities)
+            {
+                var found = true;
+                for (var i = 0; i < components.Length; i++)
+                {
+                    if (!_componentTable.has(id, components[i]))
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found)
+                    yield return id;
+            }
+        }
+       
         public bool exists(int id)
         {
             return _entityMap.Contains(id);
@@ -100,7 +123,7 @@ namespace Atma.Asteroids.Entity
                 var index = _entities.IndexOf(id);
                 _entities[index] = _entities[_entities.Count - 1];
                 _entities.RemoveAt(_entities.Count - 1);
-                
+
                 _entityMap.Remove(id);
 
                 if (onEntityRemove != null)
@@ -127,5 +150,6 @@ namespace Atma.Asteroids.Entity
         {
             return _entities.GetEnumerator();
         }
+
     }
 }

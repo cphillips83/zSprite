@@ -70,11 +70,9 @@
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Core\Time.cs" />
-    <Compile Include="Core\IComponent.cs" />
     <Compile Include="Core\Uri.cs" />
     <Compile Include="Core\UriUtil.cs" />
     <Compile Include="Engine\CoreRegistry.cs" />
-    <Compile Include="Engine\CoreRegistryUri.cs" />
     <Compile Include="Engine\IEntity.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Engine\IGameState.cs" />

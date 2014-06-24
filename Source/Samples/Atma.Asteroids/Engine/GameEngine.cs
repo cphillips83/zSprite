@@ -6,16 +6,18 @@ using Atma.Asteroids.Core;
 using Atma.Core;
 using Atma.Engine;
 using Atma.Events;
+using Atma.Asteroids.Engine.Subsystems;
 
 namespace Atma.Asteroids.Engine
 {
     public sealed class GameEngine : IGameEngine
     {
+        public static readonly GameUri Uri = "core:engine";
         private static readonly Logger logger = Logger.getLogger(typeof(GameEngine));
 
         public event Events.OnStateChangeEvent onStateChange;
 
-        private StopwatchTime time;
+        private IGameTime time;
 
         private bool _initialised = false;
         private bool _isRunning = false;
@@ -24,7 +26,14 @@ namespace Atma.Asteroids.Engine
         private bool _hasMouseFocus = false;
 
         private IGameState _state = null;
-        private IGameState _changeState = null;
+        private IGameState _pendingState = null;
+
+        private List<ISubsystem> _subsystems = new List<ISubsystem>();
+
+        public GameEngine(IEnumerable<ISubsystem> subsystems)
+        {
+            _subsystems.AddRange(subsystems);
+        }
 
         private void init()
         {
@@ -43,12 +52,19 @@ namespace Atma.Asteroids.Engine
             //logger.info("Max. Memory: {} MB", Runtime.getRuntime().maxMemory() / (1024 * 1024));
             //logger.info("Processors: {}", Runtime.getRuntime().availableProcessors());
 
-            time = CoreRegistry.putPermanently("core:time", new StopwatchTime());
+            //time = CoreRegistry.putPermanently("core:time", new StopwatchTime());
+            foreach (var s in _subsystems)
+                CoreRegistry.putPermanently(s.uri, s);
+
+            foreach (var s in _subsystems)
+                s.init();
+
+            time = CoreRegistry.require<IGameTime>(TimeBase.Uri);
         }
 
         public void run(IGameState initialState)
         {
-            CoreRegistry.putPermanently("core:engine", this);
+            CoreRegistry.putPermanently(Uri, this);
 
             init();
 
@@ -57,26 +73,65 @@ namespace Atma.Asteroids.Engine
             mainLoop();
 
             cleanUp();
-
-
         }
 
         private void mainLoop()
         {
             logger.info("running");
+            while (_isRunning)
+            {
+                processStateChanges();
 
+                if (currentState == null)
+                    break;
+
+                foreach (var tick in time.tick())
+                {
+                    foreach (var system in _subsystems)
+                    {
+                        system.preUpdate(tick);
+                        currentState.update(tick);
+                        system.postUpdate(tick);
+                    }
+                }
+
+                switchState(null);
+
+            }
         }
 
         private void cleanUp()
         {
             logger.info("clean up");
+            if (_state != null)
+            {
+                _state.end();
+                _state = null;
+            }
 
+            CoreRegistry.clear();
         }
 
         public void shutdown()
         {
-            logger.info("shutting down");
-            CoreRegistry.shutdown();
+            if (_initialised)
+            {
+                _initialised = false;
+                logger.info("shutting down");
+                if (_state != null)
+                {
+                    _state.end();
+                    _state = null;
+                }
+
+
+                for (int i = _subsystems.Count - 1; i >= 0; i--)
+                    _subsystems[i].shutdown();
+
+                _subsystems.Clear();
+
+                CoreRegistry.shutdown();
+            }
         }
 
         public bool isRunning { get { return _isRunning; } }
@@ -93,8 +148,8 @@ namespace Atma.Asteroids.Engine
         {
             logger.info("changing state {0}", state.ToString());
 
-            if (_changeState != null)
-                _changeState = state;
+            if (_pendingState != null)
+                _pendingState = state;
             else
                 switchState(state);
         }
@@ -103,15 +158,26 @@ namespace Atma.Asteroids.Engine
         {
             if (_state != null)
             {
-                _state.Dispose();
+                _state.end();
                 _state = null;
             }
 
             _state = state;
-            _state.init();
+
+            if (_state != null)
+                _state.begin();
 
             if (onStateChange != null)
                 onStateChange(new StateChangeEvent(state));
+        }
+
+        private void processStateChanges()
+        {
+            if (_pendingState != null)
+            {
+                switchState(_pendingState);
+                _pendingState = null;
+            }
         }
 
         public void Dispose()

@@ -1,4 +1,5 @@
-﻿using Atma.Core;
+﻿using Atma.Asteroids.Engine.Subsystems;
+using Atma.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,8 +33,10 @@ namespace Atma.Asteroids.Core
         }
     }
 
-    public abstract class TimeBase : IGameTime
+    public abstract class TimeBase : IGameTime, ISubsystem
     {
+        public static readonly GameUri Uri = "subsystem:time";
+
         private static readonly Logger logger = Logger.getLogger(typeof(TimeBase));
 
         private const float DECAY_RATE = 0.95f;
@@ -153,46 +156,32 @@ namespace Atma.Asteroids.Core
             }
         }
 
-        public long getRawTimeInMs()
-        {
-            throw new NotImplementedException();
-        }
-
         public void setPaused(bool pause)
         {
-            throw new NotImplementedException();
+            _paused = pause;
         }
 
-        public bool isSlow
+        public bool isSlow { get { return _isSlow; } }
+
+        public GameUri uri { get { return Uri; } }
+
+        public void init()
         {
-            get { throw new NotImplementedException(); }
+            logger.info("initialise");
         }
 
-        public float getDelta()
+        public void preUpdate(float delta)
         {
-            throw new NotImplementedException();
         }
 
-        public long getDeltaInMs()
+        public void postUpdate(float delta)
         {
-            throw new NotImplementedException();
         }
 
-        public float getFps()
+        public void shutdown()
         {
-            throw new NotImplementedException();
+            logger.info("shutdown");
         }
-
-        public long getGameTimeInMs()
-        {
-            throw new NotImplementedException();
-        }
-
-        public long getRealTimeInMs()
-        {
-            throw new NotImplementedException();
-        }
-
 
     }
 

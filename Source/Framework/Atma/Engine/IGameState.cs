@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Atma.Engine
 {
-    public interface IGameState : IDisposable
+    public interface IGameState
     {
-        void init();
+        void begin();
+
+        void end();
 
         void update(float dt);
 
