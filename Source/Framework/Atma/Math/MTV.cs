@@ -23,24 +23,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 #region Namespace Declarations
 
-
-
 #endregion Namespace Declarations
 
-
-namespace Atma.Core
+namespace Atma
 {
-    public static class UriUtil
+    public struct MinimumTranslationVector
     {
-        /// <summary>
-        /// Normalises a uri or uri part. The normal form is used for comparison/string matching.
-        /// This process includes lower-casing the uri.
-        /// </summary>
-        /// <param name="value">value A uri or uri part</param>
-        /// <returns>The normal form of the given value.</returns>
-        public static string normalise(string value)
+        public double overlap;
+        public Axis smallest;
+
+        public bool intersects { get { return overlap != 0; } }
+
+        public readonly static MinimumTranslationVector Zero = new MinimumTranslationVector(Axis.Zero, 0);
+
+        public MinimumTranslationVector(Axis smallest, double overlap)
         {
-            return value.ToLowerInvariant();
+            this.smallest = smallest;
+            this.overlap = overlap;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("O: {0}, A:{{{1}}}", overlap, smallest);
         }
     }
 }

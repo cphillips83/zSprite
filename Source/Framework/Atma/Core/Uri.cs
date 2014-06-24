@@ -1,8 +1,8 @@
 ﻿#region GPLv3 License
 
 /*
-zSprite
-Copyright © 2014 zSprite Project Team
+Atma
+Copyright © 2014 Atma Project Team
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License V3

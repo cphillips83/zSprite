@@ -23,24 +23,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 #region Namespace Declarations
 
-
-
 #endregion Namespace Declarations
 
-
-namespace Atma.Core
+namespace Atma
 {
-    public static class UriUtil
+    public struct Axis
     {
-        /// <summary>
-        /// Normalises a uri or uri part. The normal form is used for comparison/string matching.
-        /// This process includes lower-casing the uri.
-        /// </summary>
-        /// <param name="value">value A uri or uri part</param>
-        /// <returns>The normal form of the given value.</returns>
-        public static string normalise(string value)
+        public Vector2 normal;
+        public Vector2 unit;
+        public Vector2 edge;
+
+        public readonly static Axis Zero = new Axis(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+
+        public Axis(Vector2 n, Vector2 u, Vector2 e)
         {
-            return value.ToLowerInvariant();
+            this.normal = n;
+            this.unit = u;
+            this.edge = e;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("N:{0}, U:{1}, E:{2}", normal, unit, edge);
         }
     }
 }

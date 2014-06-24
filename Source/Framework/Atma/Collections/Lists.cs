@@ -1,8 +1,8 @@
-﻿#region GPLv3 License
+#region GPLv3 License
 
 /*
 Atma
-Copyright © 2014 Atma Project Team
+Copyright � 2014 Atma Project Team
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License V3
@@ -22,25 +22,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #endregion
 
 #region Namespace Declarations
-
-
-
+using System.Collections.Generic;
 #endregion Namespace Declarations
 
-
-namespace Atma.Core
+namespace Atma.Collections
 {
-    public static class UriUtil
-    {
-        /// <summary>
-        /// Normalises a uri or uri part. The normal form is used for comparison/string matching.
-        /// This process includes lower-casing the uri.
-        /// </summary>
-        /// <param name="value">value A uri or uri part</param>
-        /// <returns>The normal form of the given value.</returns>
-        public static string normalise(string value)
-        {
-            return value.ToLowerInvariant();
-        }
-    }
+	/// <summary>
+	/// 
+	/// </summary>
+	public class PlaneList : List<Plane> {}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public class PlaneBoundedVolumeList : List<PlaneBoundedVolume> {}
 }
