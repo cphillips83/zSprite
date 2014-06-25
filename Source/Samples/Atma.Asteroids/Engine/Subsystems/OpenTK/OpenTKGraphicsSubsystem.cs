@@ -101,7 +101,6 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
                 return new OpenTKMesh(uri, (MeshData)data);
             }));
 
-            var mesh = Assets.Assets.generateAsset(AssetType.MESH, new MeshData());
             ///var mesh = assetManager.generateAsset<Mesh, MeshData>("mesh:asdf:asdf", new MeshData());
         }
 

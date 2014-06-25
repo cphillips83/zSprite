@@ -8,6 +8,8 @@ using Atma.Asteroids.Engine.Subsystems;
 using Atma.Asteroids.Entity;
 using Atma.Asteroids.Systems;
 using Atma.Asteroids.Components;
+using Atma.Asteroids.Assets;
+using Atma.Asteroids.Assets.Types;
 
 namespace Atma.Asteroids.States
 {
@@ -28,6 +30,7 @@ namespace Atma.Asteroids.States
             
             _components = CoreRegistry.put(ComponentSystemManager.Uri, new ComponentSystemManager());
             _components.register(PhysicsSystem.Uri, new PhysicsSystem());
+            _components.register(RenderSystem.Uri, new RenderSystem());
 
             _components.init();
 
@@ -37,9 +40,18 @@ namespace Atma.Asteroids.States
             position.x = 1f;
             position.y = 1f;
 
-            var velocity = _entity.addComponent(id, "velocity", new Velocity());
-            velocity.x = 2;
-            velocity.y = 1.5f;
+            //var velocity = _entity.addComponent(id, "velocity", new Velocity());
+            //velocity.x = 2;
+            //velocity.y = 1.5f;
+
+
+            var meshdata = new MeshData();
+            meshdata.vertices = new Vector3[] { new Vector3(0, 1, 0), new Vector3(1, 0, 0), new Vector3(-1, 0, 0) };
+            meshdata.indices = new int[] { 0, 1, 2 };
+
+            var mesh = new Mesh() { mesh = Assets.Assets.generateAsset(AssetType.MESH, meshdata) };
+            _entity.addComponent(id, "mesh", mesh);
+
         }
 
         public void end()
@@ -64,7 +76,7 @@ namespace Atma.Asteroids.States
         {
             //graphics.beginRender()
             _components.render();
-
+            
         }
 
     }

@@ -7,12 +7,12 @@ namespace Atma.Asteroids.Assets.Types
 {
     public class MeshData : IAssetData
     {
-        private Vector3[] vertices;
-        private Vector2[] texCoord0;
-        private Vector2[] texCoord1;
-        private Vector3[] normals;
-        private Vector4[] colors;
-        private int[] indices;
+        public Vector3[] vertices;
+        public Vector2[] texCoord0;
+        public Vector2[] texCoord1;
+        public Vector3[] normals;
+        public Vector4[] colors;
+        public int[] indices;
 
         public MeshData()
         {

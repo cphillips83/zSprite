@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atma.Asteroids.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ namespace Atma.Asteroids.Assets.Types
 {
     public interface IMesh : IAsset<MeshData>, IRenderable
     {
+        RenderOperationType OperationType { get; }
         //AABB getAABB();
 
         //TFloatList getVertices();

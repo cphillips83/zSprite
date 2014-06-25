@@ -50,6 +50,8 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
         //    throw new NotImplementedException();
         //}
 
+        public RenderOperationType OperationType { get; set; }
+
         public void reload(MeshData data)
         {
             buildMesh(data);

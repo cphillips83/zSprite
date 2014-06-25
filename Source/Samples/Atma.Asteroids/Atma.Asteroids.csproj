@@ -82,9 +82,11 @@
     <Compile Include="Assets\Types\IRenderable.cs" />
     <Compile Include="Assets\Types\Mesh.cs" />
     <Compile Include="Assets\Types\MeshData.cs" />
+    <Compile Include="Components\Mesh.cs" />
     <Compile Include="Components\Position.cs" />
     <Compile Include="Components\Velocity.cs" />
     <Compile Include="Core\GameTime.cs" />
+    <Compile Include="Engine\RenderOperationType.cs" />
     <Compile Include="Engine\Subsystems\OpenTK\OpenTKMesh.cs" />
     <Compile Include="Engine\Subsystems\ViewportSubsystem.cs" />
     <Compile Include="Engine\Subsystems\DisplaySubsystem.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="States\DummyState.cs" />
     <Compile Include="Systems\IComponentSystem.cs" />
     <Compile Include="Systems\PhysicsSystem.cs" />
+    <Compile Include="Systems\RenderSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Atma\Atma.csproj">
