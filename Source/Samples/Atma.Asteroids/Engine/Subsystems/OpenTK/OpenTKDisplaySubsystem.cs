@@ -33,6 +33,7 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
 
         public override void processmMessage()
         {
+            _window.MakeCurrent();
             _window.ProcessEvents();
         }
 

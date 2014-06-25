@@ -5,6 +5,7 @@ using System.Text;
 using Atma.Engine;
 
 using TK = OpenTK;
+using OpenGL = OpenTK.Graphics.OpenGL;
 using GL11 = OpenTK.Graphics.ES11.GL;
 using Atma.Core;
 using Atma.Asteroids.Assets;
@@ -20,8 +21,14 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
 
         public override void preUpdate(float delta)
         {
-            base.preUpdate(delta);
             _display.processmMessage();
+            OpenGL.GL.Clear(OpenGL.ClearBufferMask.ColorBufferBit | OpenGL.ClearBufferMask.DepthBufferBit);
+            OpenGL.GL.MatrixMode(OpenGL.MatrixMode.Projection);
+            OpenGL.GL.LoadIdentity();
+            OpenGL.GL.Ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 4.0);
+
+         
+            base.preUpdate(delta);
         }
 
         public override void postUpdate(float delta)
