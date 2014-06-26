@@ -12,7 +12,7 @@ namespace Atma.Asteroids.Assets.Types
         public Vector2[] texCoord1;
         public Vector3[] normals;
         public Vector4[] colors;
-        public int[] indices;
+        public ushort[] indices;
 
         public MeshData()
         {
@@ -43,7 +43,7 @@ namespace Atma.Asteroids.Assets.Types
             return colors;
         }
 
-        public int[] getIndices()
+        public ushort[] getIndices()
         {
             return indices;
         }

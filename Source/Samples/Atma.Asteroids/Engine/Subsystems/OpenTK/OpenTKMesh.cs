@@ -202,7 +202,7 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
 
                 //GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboVertexBuffer);
                 //ES11.GL.BindBuffer(ES11.All.ArrayBuffer, vboVertexBuffer);
-
+                
                 //GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboIndexBuffer);
                 //ES11.GL.BindBuffer(ES11.All.ElementArrayBuffer, vboIndexBuffer);
 
@@ -249,8 +249,8 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
             {
                
                 //GL11.glDrawElements(GL11.GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
-                //ES11.GL.DrawElements(ES11.PrimitiveType.Triangles, indexCount, ES11.All.Int, data.getIndices());
-                ES11.GL.DrawArrays(ES11.PrimitiveType.Triangles, 0, indexCount);
+                ES11.GL.DrawElements(ES11.PrimitiveType.Triangles, indexCount, ES11.All.UnsignedShort, data.getIndices());
+                //ES11.GL.DrawArrays(ES11.PrimitiveType.Triangles, 0, indexCount);
             }
             else
             {

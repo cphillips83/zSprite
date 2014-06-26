@@ -47,7 +47,7 @@ namespace Atma.Asteroids.States
 
             var meshdata = new MeshData();
             meshdata.vertices = new Vector3[] { new Vector3(-1, 1, 0), new Vector3(0, -1, 0), new Vector3(1, 1, 0) };
-            meshdata.indices = new int[] { 0, 1, 2 };
+            meshdata.indices = new ushort[] { 0, 1, 2 };
 
             var mesh = new Mesh() { mesh = Assets.Assets.generateAsset(AssetType.MESH, meshdata) };
             _entity.addComponent(id, "mesh", mesh);
