@@ -7,6 +7,7 @@ using Atma.Asteroids.Assets.Types;
 using Atma.Core;
 using OpenGL = OpenTK.Graphics.OpenGL;
 using ES11 = OpenTK.Graphics.ES11;
+using TK = OpenTK;
 
 namespace Atma.Asteroids.Engine.Subsystems.OpenTK
 {
@@ -44,6 +45,7 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
             : base(uri)
         {
             reload(data);
+                
         }
 
         //public override List<float> getVertices()
@@ -75,6 +77,7 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
             normalOffset = 0;
             indexCount = data.indices.Length;
 
+            
             ////List<TFloatIterator> parts = Lists.newArrayList();
             ////TIntList partSizes = new TIntArrayList();
             //int vertexCount = newData.getVertices().Length;
@@ -125,6 +128,8 @@ namespace Atma.Asteroids.Engine.Subsystems.OpenTK
 
         protected override void ondispose()
         {
+            
+
             hasTexCoord0 = false;
             hasTexCoord1 = false;
             hasColor = false;
