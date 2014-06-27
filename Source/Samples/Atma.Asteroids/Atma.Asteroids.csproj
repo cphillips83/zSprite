@@ -89,6 +89,7 @@
     <Compile Include="Engine\RenderOperationType.cs" />
     <Compile Include="Engine\Subsystems\IRenderTarget.cs" />
     <Compile Include="Engine\Subsystems\OpenTK\OpenTKMesh.cs" />
+    <Compile Include="Engine\Subsystems\OpenTK\OpenTKVBO.cs" />
     <Compile Include="Engine\Subsystems\ViewportSubsystem.cs" />
     <Compile Include="Engine\Subsystems\DisplaySubsystem.cs" />
     <Compile Include="Engine\GameEngine.cs" />

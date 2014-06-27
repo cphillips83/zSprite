@@ -601,10 +601,10 @@ namespace Atma
 			Debug.Assert( IsAffine );
 
 			return new Vector4(
-				m00 * v.x + m01 * v.y + m02 * v.z + m03 * v.w,
-				m10 * v.x + m11 * v.y + m12 * v.z + m13 * v.w,
-				m20 * v.x + m21 * v.y + m22 * v.z + m23 * v.w,
-				v.w );
+				m00 * v.X + m01 * v.Y + m02 * v.Z + m03 * v.W,
+				m10 * v.X + m11 * v.Y + m12 * v.Z + m13 * v.W,
+				m20 * v.X + m21 * v.Y + m22 * v.Z + m23 * v.W,
+				v.W );
 		}
 
 		/// <summary>

@@ -152,7 +152,7 @@ namespace Atma
 			Vector4 result = powers * hermitePoly * point;
 
 			// return the final result
-			return new Vector3( result.x, result.y, result.z );
+			return new Vector3( result.X, result.Y, result.Z );
 		}
 
 		/// <summary>

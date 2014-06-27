@@ -36,7 +36,7 @@ namespace Atma
 	{
 		#region Member variables
 
-		public Real x, y, z, w;
+		public Real X, Y, Z, W;
 
 		private static readonly Vector4 zeroVector = new Vector4( 0.0f, 0.0f, 0.0f, 0.0f );
 
@@ -49,10 +49,10 @@ namespace Atma
 		/// </summary>
 		public Vector4( Real x, Real y, Real z, Real w )
 		{
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.w = w;
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+			this.W = w;
 		}
 
 		#endregion
@@ -77,7 +77,7 @@ namespace Atma
 		/// <returns>A Real representing the dot product value.</returns>
 		public Real Dot( Vector4 vec )
 		{
-			return x * vec.x + y * vec.y + z * vec.z + w * vec.w;
+			return X * vec.X + Y * vec.Y + Z * vec.Z + W * vec.W;
 		}
 
 		#endregion Methods
@@ -105,10 +105,10 @@ namespace Atma
 		{
 			Vector4 result = new Vector4();
 
-			result.x = vector.x * matrix.m00 + vector.y * matrix.m01 + vector.z * matrix.m02 + vector.w * matrix.m03;
-			result.y = vector.x * matrix.m10 + vector.y * matrix.m11 + vector.z * matrix.m12 + vector.w * matrix.m13;
-			result.z = vector.x * matrix.m20 + vector.y * matrix.m21 + vector.z * matrix.m22 + vector.w * matrix.m23;
-			result.w = vector.x * matrix.m30 + vector.y * matrix.m31 + vector.z * matrix.m32 + vector.w * matrix.m33;
+			result.X = vector.X * matrix.m00 + vector.Y * matrix.m01 + vector.Z * matrix.m02 + vector.W * matrix.m03;
+			result.Y = vector.X * matrix.m10 + vector.Y * matrix.m11 + vector.Z * matrix.m12 + vector.W * matrix.m13;
+			result.Z = vector.X * matrix.m20 + vector.Y * matrix.m21 + vector.Z * matrix.m22 + vector.W * matrix.m23;
+			result.W = vector.X * matrix.m30 + vector.Y * matrix.m31 + vector.Z * matrix.m32 + vector.W * matrix.m33;
 
 			return result;
 		}
@@ -118,10 +118,10 @@ namespace Atma
 		{
 			Vector4 result = new Vector4();
 
-			result.x = vector.x * matrix.m00 + vector.y * matrix.m10 + vector.z * matrix.m20 + vector.w * matrix.m30;
-			result.y = vector.x * matrix.m01 + vector.y * matrix.m11 + vector.z * matrix.m21 + vector.w * matrix.m31;
-			result.z = vector.x * matrix.m02 + vector.y * matrix.m12 + vector.z * matrix.m22 + vector.w * matrix.m32;
-			result.w = vector.x * matrix.m03 + vector.y * matrix.m13 + vector.z * matrix.m23 + vector.w * matrix.m33;
+			result.X = vector.X * matrix.m00 + vector.Y * matrix.m10 + vector.Z * matrix.m20 + vector.W * matrix.m30;
+			result.Y = vector.X * matrix.m01 + vector.Y * matrix.m11 + vector.Z * matrix.m21 + vector.W * matrix.m31;
+			result.Z = vector.X * matrix.m02 + vector.Y * matrix.m12 + vector.Z * matrix.m22 + vector.W * matrix.m32;
+			result.W = vector.X * matrix.m03 + vector.Y * matrix.m13 + vector.Z * matrix.m23 + vector.W * matrix.m33;
 
 			return result;
 		}
@@ -136,10 +136,10 @@ namespace Atma
 		{
 			Vector4 result = new Vector4();
 
-			result.x = vector.x * scalar;
-			result.y = vector.y * scalar;
-			result.z = vector.z * scalar;
-			result.w = vector.w * scalar;
+			result.X = vector.X * scalar;
+			result.Y = vector.Y * scalar;
+			result.Z = vector.Z * scalar;
+			result.W = vector.W * scalar;
 
 			return result;
 		}
@@ -152,10 +152,10 @@ namespace Atma
 		/// <returns>true or false</returns>
 		public static bool operator ==( Vector4 left, Vector4 right )
 		{
-			return ( left.x == right.x &&
-			         left.y == right.y &&
-			         left.z == right.z &&
-			         left.w == right.w );
+			return ( left.X == right.X &&
+			         left.Y == right.Y &&
+			         left.Z == right.Z &&
+			         left.W == right.W );
 		}
 
 		/// <summary>
@@ -166,7 +166,7 @@ namespace Atma
 		/// <returns></returns>
 		public static Vector4 operator +( Vector4 left, Vector4 right )
 		{
-			return new Vector4( left.x + right.x, left.y + right.y, left.z + right.z, left.w + right.w );
+			return new Vector4( left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W );
 		}
 
 		/// <summary>
@@ -177,7 +177,7 @@ namespace Atma
 		/// <returns></returns>
 		public static Vector4 operator -( Vector4 left, Vector4 right )
 		{
-			return new Vector4( left.x - right.x, left.y - right.y, left.z - right.z, left.w - right.w );
+			return new Vector4( left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W );
 		}
 
 		/// <summary>
@@ -187,7 +187,7 @@ namespace Atma
 		/// <returns></returns>
 		public static Vector4 operator -( Vector4 left )
 		{
-			return new Vector4( -left.x, -left.y, -left.z, -left.w );
+			return new Vector4( -left.X, -left.Y, -left.Z, -left.W );
 		}
 
 		/// <summary>
@@ -198,10 +198,10 @@ namespace Atma
 		/// <returns>true or false</returns>
 		public static bool operator !=( Vector4 left, Vector4 right )
 		{
-			return ( left.x != right.x ||
-			         left.y != right.y ||
-			         left.z != right.z ||
-			         left.w != right.w );
+			return ( left.X != right.X ||
+			         left.Y != right.Y ||
+			         left.Z != right.Z ||
+			         left.W != right.W );
 		}
 
         public static implicit operator Vector4(Color c)
@@ -211,7 +211,7 @@ namespace Atma
 
         public static implicit operator Color(Vector4 v)
         {
-            return new Color(v.x, v.y, v.z, v.w);
+            return new Color(v.X, v.Y, v.Z, v.W);
         }
 
 		/// <summary>
@@ -229,7 +229,7 @@ namespace Atma
 				// using pointer arithmetic here for less code.  Otherwise, we'd have a big switch statement.
 				unsafe
 				{
-					fixed( Real* pX = &x )
+					fixed( Real* pX = &X )
 					{
 						return *( pX + index );
 					}
@@ -242,7 +242,7 @@ namespace Atma
 				// using pointer arithmetic here for less code.  Otherwise, we'd have a big switch statement.
 				unsafe
 				{
-					fixed( Real* pX = &x )
+					fixed( Real* pX = &X )
 					{
 						*( pX + index ) = value;
 					}
@@ -261,7 +261,7 @@ namespace Atma
 		/// <returns>A string representation of a Vector4.</returns>
 		public override string ToString()
 		{
-			return string.Format( "<{0},{1},{2},{3}>", this.x, this.y, this.z, this.w );
+			return string.Format( "<{0},{1},{2},{3}>", this.X, this.Y, this.Z, this.W );
 		}
 
 		/// <summary>
@@ -275,7 +275,7 @@ namespace Atma
 		/// <returns></returns>
 		public override int GetHashCode()
 		{
-			return this.x.GetHashCode() ^ this.y.GetHashCode() ^ this.z.GetHashCode() ^ this.w.GetHashCode();
+			return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Z.GetHashCode() ^ this.W.GetHashCode();
 		}
 
 		/// <summary>

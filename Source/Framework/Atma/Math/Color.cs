@@ -289,7 +289,7 @@ namespace Atma
 
         public static implicit operator Color(Vector4 v)
         {
-            return new Color(v.x, v.y, v.z, v.w);
+            return new Color(v.X, v.Y, v.Z, v.W);
         }
 
 
